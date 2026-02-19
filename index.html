@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SecureGen – Privacy Policy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Lora:ital,wght@0,400;1,400;1,600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --ink:        #0A0F1E;
+      --ink-soft:   #3B4260;
+      --ink-muted:  #6B7399;
+      --accent:     #1A56DB;
+      --accent-2:   #06B6D4;
+      --safe:       #059669;
+      --warn:       #D97706;
+      --surface:    #F7F8FC;
+      --card:       #FFFFFF;
+      --border:     #E2E5F0;
+      --glow:       rgba(26,86,219,0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lora', Georgia, serif;
+      background: var(--surface);
+      color: var(--ink);
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    /* ── HERO HEADER ── */
+    .hero {
+      position: relative;
+      background: var(--ink);
+      padding: 80px 40px 100px;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: -80px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(26,86,219,0.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; right: -60px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(6,182,212,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(26,86,219,0.2);
+      border: 1px solid rgba(26,86,219,0.4);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: #93C5FD;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      animation: fadeDown 0.6s ease both;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #22D3EE;
+      box-shadow: 0 0 8px #22D3EE;
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.4); }
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      animation: fadeDown 0.6s 0.1s ease both;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #60A5FA, #22D3EE);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: #94A3B8;
+      max-width: 560px;
+      margin-bottom: 36px;
+      animation: fadeDown 0.6s 0.2s ease both;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      animation: fadeDown 0.6s 0.3s ease both;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .hero-meta-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #475569;
+    }
+
+    .hero-meta-value {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: #CBD5E1;
+    }
+
+    /* ── TRUST STRIP ── */
+    .trust-strip {
+      background: linear-gradient(135deg, #1A56DB, #0891B2);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .trust-item:nth-child(1) { animation-delay: 0.4s; }
+    .trust-item:nth-child(2) { animation-delay: 0.5s; }
+    .trust-item:nth-child(3) { animation-delay: 0.6s; }
+    .trust-item:nth-child(4) { animation-delay: 0.7s; }
+
+    .trust-icon {
+      width: 28px; height: 28px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 40px 100px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── SIDEBAR TOC ── */
+    .sidebar {
+      position: sticky;
+      top: 40px;
+      height: fit-content;
+    }
+
+    .toc-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 16px;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .toc-list a {
+      display: block;
+      padding: 8px 12px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--ink-soft);
+      text-decoration: none;
+      border-left: 2px solid var(--border);
+      transition: all 0.2s ease;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .toc-list a:hover {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: var(--glow);
+      padding-left: 16px;
+    }
+
+    .toc-number {
+      color: var(--ink-muted);
+      margin-right: 6px;
+    }
+
+    /* ── CONTENT ── */
+    .content {
+      min-width: 0;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 64px;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: sectionIn 0.6s ease forwards;
+    }
+
+    .section:nth-child(1)  { animation-delay: 0.1s; }
+    .section:nth-child(2)  { animation-delay: 0.15s; }
+    .section:nth-child(3)  { animation-delay: 0.2s; }
+    .section:nth-child(4)  { animation-delay: 0.25s; }
+    .section:nth-child(5)  { animation-delay: 0.3s; }
+    .section:nth-child(6)  { animation-delay: 0.35s; }
+    .section:nth-child(7)  { animation-delay: 0.4s; }
+    .section:nth-child(8)  { animation-delay: 0.45s; }
+    .section:nth-child(9)  { animation-delay: 0.5s; }
+    .section:nth-child(10) { animation-delay: 0.55s; }
+
+    @keyframes sectionIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      background: var(--glow);
+      border: 1px solid rgba(26,86,219,0.2);
+      border-radius: 6px;
+      padding: 4px 10px;
+      letter-spacing: 0.08em;
+      flex-shrink: 0;
+    }
+
+    .section-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .section h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .section p {
+      font-size: 16px;
+      color: var(--ink-soft);
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+
+    /* ── CALLOUT BOXES ── */
+    .callout {
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 20px 0;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .callout-safe {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+    }
+
+    .callout-warn {
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+    }
+
+    .callout-info {
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+    }
+
+    .callout-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .callout-body {
+      flex: 1;
+    }
+
+    .callout-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .callout-safe .callout-title { color: var(--safe); }
+    .callout-warn .callout-title { color: var(--warn); }
+    .callout-info .callout-title { color: var(--accent); }
+
+    .callout p {
+      font-size: 14px;
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    .callout-safe p { color: #065F46; }
+    .callout-warn p { color: #78350F; }
+    .callout-info p { color: #1E40AF; }
+
+    /* ── COMMITMENT GRID ── */
+    .commit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .commit-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      transition: all 0.2s ease;
+    }
+
+    .commit-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--glow);
+      transform: translateY(-2px);
+    }
+
+    .commit-check {
+      width: 22px; height: 22px;
+      background: #DCFCE7;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .commit-text {
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    .commit-text strong {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    /* ── DATA TABLE ── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .data-table th {
+      background: var(--ink);
+      color: white;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 12px 16px;
+      text-align: left;
+    }
+
+    .data-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--ink-soft);
+      vertical-align: top;
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:nth-child(even) td { background: var(--surface); }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+    }
+
+    .tag-none { background: #FEE2E2; color: #991B1B; }
+    .tag-local { background: #DCFCE7; color: #065F46; }
+    .tag-device { background: #EFF6FF; color: #1E40AF; }
+
+    /* ── SECURITY VISUAL ── */
+    .security-stack {
+      background: var(--ink);
+      border-radius: 14px;
+      padding: 28px;
+      margin: 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .security-stack::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(26,86,219,0.3), transparent 70%);
+    }
+
+    .security-stack-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #64748B;
+      margin-bottom: 20px;
+    }
+
+    .security-layers {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .security-layer {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 12px 16px;
+      transition: all 0.2s ease;
+    }
+
+    .security-layer:hover {
+      background: rgba(26,86,219,0.15);
+      border-color: rgba(26,86,219,0.4);
+    }
+
+    .layer-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .layer-info {
+      flex: 1;
+    }
+
+    .layer-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #E2E8F0;
+      margin-bottom: 2px;
+    }
+
+    .layer-desc {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #64748B;
+    }
+
+    .layer-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(26,86,219,0.3);
+      color: #93C5FD;
+      border: 1px solid rgba(26,86,219,0.4);
+      flex-shrink: 0;
+    }
+
+    /* ── PERMISSION LIST ── */
+    .perm-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .perm-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+    }
+
+    .perm-code {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      color: var(--accent);
+      white-space: nowrap;
+      flex-shrink: 0;
+      min-width: 200px;
+    }
+
+    .perm-reason {
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+
+    /* ── CONTACT CARD ── */
+    .contact-card {
+      background: linear-gradient(135deg, var(--ink), #1E293B);
+      border-radius: 16px;
+      padding: 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: 50%;
+      transform: translateX(-50%);
+      width: 300px; height: 200px;
+      background: radial-gradient(circle, rgba(26,86,219,0.4), transparent 70%);
+    }
+
+    .contact-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-card p {
+      font-size: 15px;
+      color: #94A3B8;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-info {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(26,86,219,0.2);
+      border: 1px solid rgba(26,86,219,0.4);
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      color: #93C5FD;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 8px;
+    }
+
+    .footer-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #475569;
+      letter-spacing: 0.08em;
+    }
+
+    .footer-divider {
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      margin: 16px auto;
+      border-radius: 2px;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .layout {
+        grid-template-columns: 1fr;
+        padding: 40px 20px 80px;
+        gap: 0;
+      }
+      .sidebar { display: none; }
+      .commit-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 24px 80px; }
+      .trust-strip { gap: 20px; padding: 16px 24px; }
+      .hero-meta { gap: 20px; }
+      .perm-code { min-width: unset; }
+      .perm-item { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">🔐 Legal Document</div>
+      <h1>Privacy <span>Policy</span></h1>
+      <p class="hero-sub">SecureGen is built on one promise — your data never leaves your device.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">App Name</span>
+          <span class="hero-meta-value">SecureGen</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Version</span>
+          <span class="hero-meta-value">1.0</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Platform</span>
+          <span class="hero-meta-value">Android (Flutter)</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Effective Date</span>
+          <span class="hero-meta-value">2025</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Last Updated</span>
+          <span class="hero-meta-value">2025</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="trust-item">
+      <div class="trust-icon">🚫</div>
+      NO SERVER STORAGE
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">☁️</div>
+      NO CLOUD SYNC
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">📊</div>
+      NO ANALYTICS
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🔒</div>
+      AES-256 ENCRYPTED
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="layout">
+
+    <!-- SIDEBAR TOC -->
+    <aside class="sidebar">
+      <p class="toc-label">Contents</p>
+      <ul class="toc-list">
+        <li><a href="#s1"><span class="toc-number">01</span> Overview</a></li>
+        <li><a href="#s2"><span class="toc-number">02</span> Data We Collect</a></li>
+        <li><a href="#s3"><span class="toc-number">03</span> Data We Do NOT Collect</a></li>
+        <li><a href="#s4"><span class="toc-number">04</span> How Data Is Stored</a></li>
+        <li><a href="#s5"><span class="toc-number">05</span> Security Architecture</a></li>
+        <li><a href="#s6"><span class="toc-number">06</span> Internet Requirement</a></li>
+        <li><a href="#s7"><span class="toc-number">07</span> Permissions</a></li>
+        <li><a href="#s8"><span class="toc-number">08</span> Children's Privacy</a></li>
+        <li><a href="#s9"><span class="toc-number">09</span> Your Rights</a></li>
+        <li><a href="#s10"><span class="toc-number">10</span> Changes to Policy</a></li>
+        <li><a href="#s11"><span class="toc-number">11</span> Contact Us</a></li>
+      </ul>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+      <!-- 1. OVERVIEW -->
+      <section class="section" id="s1">
+        <div class="section-header">
+          <span class="section-num">01</span>
+          <span class="section-icon">🛡️</span>
+          <h2>Overview</h2>
+        </div>
+        <p>SecureGen ("the App", "we", "our") is a password generation and management application built for Android using Flutter. This Privacy Policy describes what information the App interacts with, how it is handled, and the security measures in place to protect you.</p>
+        <p>SecureGen is designed with a <em>privacy-by-design</em> philosophy. The App does not operate a backend server, does not connect to any cloud service, and does not transmit your data anywhere. Everything stays on your device.</p>
+        <div class="callout callout-safe">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <div class="callout-title">Our Core Promise</div>
+            <p>SecureGen will never collect, transmit, sell, share, or store your personal data on any external server. Your passwords are yours — and only yours. This is a technical guarantee, not just a policy statement.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. DATA WE COLLECT -->
+      <section class="section" id="s2">
+        <div class="section-header">
+          <span class="section-num">02</span>
+          <span class="section-icon">📋</span>
+          <h2>Data We Collect (Locally Only)</h2>
+        </div>
+        <p>The App only stores data that you explicitly create or enter. All of this data is saved exclusively on your device's local storage and is never transmitted externally.</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Purpose</th>
+              <th>Where Stored</th>
+              <th>Sent Externally?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Saved Passwords</strong></td>
+              <td>User-saved credentials (website, username, password, notes)</td>
+              <td><span class="tag tag-local">Encrypted Hive Box</span></td>
+              <td><span class="tag tag-none">Never</span></td>
+            </tr>
+            <tr>
+              <td><strong>Master Password Hash</strong></td>
+              <td>Authenticates access to the vault</td>
+              <td><span class="tag tag-device">Secure Storage</span></td>
+              <td><span class="tag tag-none">Never</span></td>
+            </tr>
+            <tr>
+              <td><strong>App Preferences</strong></td>
+              <td>Theme, font size, auto-lock timer, generator defaults</td>
+              <td><span class="tag tag-local">Local Storage</span></td>
+              <td><span class="tag tag-none">Never</span></td>
+            </tr>
+            <tr>
+              <td><strong>Backup File (Manual)</strong></td>
+              <td>Encrypted export file created by user request</td>
+              <td><span class="tag tag-local">Device File System</span></td>
+              <td><span class="tag tag-none">Never</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">ℹ️</div>
+          <div class="callout-body">
+            <div class="callout-title">About Your Master Password</div>
+            <p>Your Master Password is never stored in plain text anywhere on your device. Only a SHA-256 cryptographic hash of it is saved — meaning neither we nor anyone with access to your device storage can recover or read your Master Password.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. DATA WE DO NOT COLLECT -->
+      <section class="section" id="s3">
+        <div class="section-header">
+          <span class="section-num">03</span>
+          <span class="section-icon">🚫</span>
+          <h2>Data We Do NOT Collect</h2>
+        </div>
+        <p>SecureGen is intentionally built to collect as little data as possible — in fact, the following categories of data are never collected under any circumstance:</p>
+
+        <div class="commit-grid">
+          <div class="commit-card">
+            <div class="commit-check">✕</div>
+            <div class="commit-text">
+              <strong>Personal Identity</strong>
+              No name, email, phone number, or account registration of any kind.
+            </div>
+          </div>
+          <div class="commit-card">
+            <div class="commit-check">✕</div>
+            <div class="commit-text">
+              <strong>Location Data</strong>
+              No GPS, IP address, or location-based data is accessed or stored.
+            </div>
+          </div>
+          <div class="commit-card">
+            <div class="commit-check">✕</div>
+            <div class="commit-text">
+              <strong>Device Identifiers</strong>
+              No IMEI, device ID, advertising ID, or hardware fingerprinting.
+            </div>
+          </div>
+          <div class="commit-card">
+            <div class="commit-check">✕</div>
+            <div class="commit-text">
+              <strong>Usage Analytics</strong>
+              No screen views, button taps, session duration, or behavioral data.
+            </div>
+          </div>
+          <div class="commit-card">
+            <div class="commit-check">✕</div>
+            <div class="commit-text">
+              <strong>Crash Reports</strong>
+              No crash logs, error reports, or diagnostics sent to third parties.
+            </div>
+          </div>
+          <div class="commit-card">
+            <div class="commit-check">✕</div>
+            <div class="commit-text">
+              <strong>Advertising Data</strong>
+              No ads are displayed. No ad SDKs are included in the App.
+            </div>
+          </div>
+          <div class="commit-card">
+            <div class="commit-check">✕</div>
+            <div class="commit-text">
+              <strong>Contacts or Camera</strong>
+              No access to your contacts, gallery, camera, or microphone.
+            </div>
+          </div>
+          <div class="commit-card">
+            <div class="commit-check">✕</div>
+            <div class="commit-text">
+              <strong>Financial Information</strong>
+              No payment data is processed or stored within the App.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. HOW DATA IS STORED -->
+      <section class="section" id="s4">
+        <div class="section-header">
+          <span class="section-num">04</span>
+          <span class="section-icon">🗄️</span>
+          <h2>How Your Data Is Stored</h2>
+        </div>
+        <p>All data created within SecureGen is stored entirely on your physical device. We use three distinct storage mechanisms depending on sensitivity level:</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Storage Type</th>
+              <th>What's Stored</th>
+              <th>Encryption</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>flutter_secure_storage</strong><br><small style="color:#6B7399;font-family:'DM Mono',monospace;font-size:11px;">Android Keystore backed</small></td>
+              <td>SHA-256 hash of your Master Password</td>
+              <td>Hardware-level encryption via Android Keystore</td>
+            </tr>
+            <tr>
+              <td><strong>Hive Encrypted Box</strong><br><small style="color:#6B7399;font-family:'DM Mono',monospace;font-size:11px;">Dart-native database</small></td>
+              <td>All saved password entries</td>
+              <td>AES-256 with key derived from Master Password</td>
+            </tr>
+            <tr>
+              <td><strong>Local Preferences</strong><br><small style="color:#6B7399;font-family:'DM Mono',monospace;font-size:11px;">Non-sensitive only</small></td>
+              <td>App settings, theme choice, generator defaults</td>
+              <td>No encryption needed (non-sensitive data only)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-warn">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <div class="callout-title">Important: Device Responsibility</div>
+            <p>Because all data is stored locally, you are responsible for protecting your device with a screen lock. If someone has physical access to an unlocked device, they could potentially access the App. We recommend always enabling device lock and the App's Master Password feature.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. SECURITY ARCHITECTURE -->
+      <section class="section" id="s5">
+        <div class="section-header">
+          <span class="section-num">05</span>
+          <span class="section-icon">🔐</span>
+          <h2>Security Architecture</h2>
+        </div>
+        <p>SecureGen implements a multi-layer security model to protect your stored passwords even in the event of unauthorized device access.</p>
+
+        <div class="security-stack">
+          <p class="security-stack-title">Security Layers — Innermost to Outermost</p>
+          <div class="security-layers">
+            <div class="security-layer">
+              <div class="layer-icon">🧮</div>
+              <div class="layer-info">
+                <div class="layer-name">AES-256 Data Encryption</div>
+                <div class="layer-desc">All password records encrypted before write to Hive box</div>
+              </div>
+              <div class="layer-badge">AES-256</div>
+            </div>
+            <div class="security-layer">
+              <div class="layer-icon">🔑</div>
+              <div class="layer-info">
+                <div class="layer-name">Master Password Hash</div>
+                <div class="layer-desc">SHA-256 hash stored in Android Keystore — never plain text</div>
+              </div>
+              <div class="layer-badge">SHA-256</div>
+            </div>
+            <div class="security-layer">
+              <div class="layer-icon">⏱️</div>
+              <div class="layer-info">
+                <div class="layer-name">Auto-Lock on Idle & Background</div>
+                <div class="layer-desc">App locks after 30s / 1min / 5min of inactivity or on minimize</div>
+              </div>
+              <div class="layer-badge">Auto-Lock</div>
+            </div>
+            <div class="security-layer">
+              <div class="layer-icon">🖐️</div>
+              <div class="layer-info">
+                <div class="layer-name">Biometric Authentication (Optional)</div>
+                <div class="layer-desc">Fingerprint / Face ID via local_auth — no biometric data stored by app</div>
+              </div>
+              <div class="layer-badge">Biometric</div>
+            </div>
+            <div class="security-layer">
+              <div class="layer-icon">📷</div>
+              <div class="layer-info">
+                <div class="layer-name">Screenshot Prevention</div>
+                <div class="layer-desc">FLAG_SECURE applied on vault screen to block screen capture on Android</div>
+              </div>
+              <div class="layer-badge">FLAG_SECURE</div>
+            </div>
+            <div class="security-layer">
+              <div class="layer-icon">📋</div>
+              <div class="layer-info">
+                <div class="layer-name">Clipboard Auto-Clear</div>
+                <div class="layer-desc">Copied passwords are automatically removed from clipboard after 30 seconds</div>
+              </div>
+              <div class="layer-badge">30s Clear</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. INTERNET REQUIREMENT -->
+      <section class="section" id="s6">
+        <div class="section-header">
+          <span class="section-num">06</span>
+          <span class="section-icon">🌐</span>
+          <h2>Internet Requirement</h2>
+        </div>
+        <p>SecureGen requires an active internet connection (WiFi or Mobile Data) to operate. This is a product-level requirement — <strong>not</strong> because data is sent to a server, but as a built-in product design decision.</p>
+
+        <div class="callout callout-safe">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <div class="callout-title">Verified: No Data Is Transmitted</div>
+            <p>Even though an internet connection is required, SecureGen does not send, upload, sync, or transmit any data to any server — ever. You can verify this by using a network traffic monitor (e.g., Wireshark or Android's Network Inspector) while using the App — zero outbound data will be detected.</p>
+          </div>
+        </div>
+
+        <p>The App uses the <code style="font-family:'DM Mono',monospace;font-size:13px;background:var(--surface);padding:2px 6px;border-radius:4px;border:1px solid var(--border);">connectivity_plus</code> Flutter package solely to detect whether a network interface is active. No network requests are made through this package or any other mechanism within the App.</p>
+      </section>
+
+      <!-- 7. PERMISSIONS -->
+      <section class="section" id="s7">
+        <div class="section-header">
+          <span class="section-num">07</span>
+          <span class="section-icon">📱</span>
+          <h2>Android Permissions</h2>
+        </div>
+        <p>SecureGen requests only the minimum permissions necessary to function. Below is a complete list of all permissions the App may request and the exact reason for each:</p>
+
+        <div class="perm-list">
+          <div class="perm-item">
+            <div class="perm-code">INTERNET</div>
+            <div class="perm-reason">Required to detect whether an internet connection is active. No network requests are made to any server.</div>
+          </div>
+          <div class="perm-item">
+            <div class="perm-code">ACCESS_NETWORK_STATE</div>
+            <div class="perm-reason">Allows the App to check if WiFi or Mobile Data is currently connected before enabling core features.</div>
+          </div>
+          <div class="perm-item">
+            <div class="perm-code">USE_BIOMETRIC</div>
+            <div class="perm-reason">Enables optional fingerprint or Face ID unlock as an alternative to typing the Master Password. Only requested if you enable biometric in settings.</div>
+          </div>
+          <div class="perm-item">
+            <div class="perm-code">USE_FINGERPRINT</div>
+            <div class="perm-reason">Legacy biometric support for older Android devices (Android 6.0–8.x). Same purpose as USE_BIOMETRIC above.</div>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">ℹ️</div>
+          <div class="callout-body">
+            <div class="callout-title">Biometric Data</div>
+            <p>The App never accesses, stores, or transmits your fingerprint or facial data. Biometric authentication is handled entirely by the Android operating system. SecureGen only receives a boolean pass or fail result from the system.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. CHILDREN'S PRIVACY -->
+      <section class="section" id="s8">
+        <div class="section-header">
+          <span class="section-num">08</span>
+          <span class="section-icon">👶</span>
+          <h2>Children's Privacy</h2>
+        </div>
+        <p>SecureGen is not directed at children under the age of 13. We do not knowingly collect any personal information from children. Since the App does not collect any personal information from any user — child or adult — it is inherently compliant with COPPA (Children's Online Privacy Protection Act).</p>
+        <p>If you are a parent or guardian and believe your child has used the App, please be aware that no data has been transmitted to us. All data the App stores lives only on the child's device.</p>
+      </section>
+
+      <!-- 9. YOUR RIGHTS -->
+      <section class="section" id="s9">
+        <div class="section-header">
+          <span class="section-num">09</span>
+          <span class="section-icon">⚖️</span>
+          <h2>Your Rights & Control</h2>
+        </div>
+        <p>Because SecureGen stores all data locally on your device, you have complete and total control over your data at all times. Your rights include:</p>
+
+        <div class="commit-grid">
+          <div class="commit-card">
+            <div class="commit-check">✓</div>
+            <div class="commit-text">
+              <strong>Right to Access</strong>
+              Open the App and view all saved passwords after Master Password verification.
+            </div>
+          </div>
+          <div class="commit-card">
+            <div class="commit-check">✓</div>
+            <div class="commit-text">
+              <strong>Right to Edit</strong>
+              Edit any saved password entry at any time within the App.
+            </div>
+          </div>
+          <div class="commit-card">
+            <div class="commit-check">✓</div>
+            <div class="commit-text">
+              <strong>Right to Delete</strong>
+              Delete individual entries or clear all data from Settings → Clear All Data.
+            </div>
+          </div>
+          <div class="commit-card">
+            <div class="commit-check">✓</div>
+            <div class="commit-text">
+              <strong>Right to Export</strong>
+              Export an AES-256 encrypted backup of all your saved passwords at any time.
+            </div>
+          </div>
+          <div class="commit-card">
+            <div class="commit-check">✓</div>
+            <div class="commit-text">
+              <strong>Right to Portability</strong>
+              Your backup file is yours — import it to any supported version of SecureGen on any device.
+            </div>
+          </div>
+          <div class="commit-card">
+            <div class="commit-check">✓</div>
+            <div class="commit-text">
+              <strong>Right to Erasure</strong>
+              Uninstalling the App permanently and irreversibly deletes all data stored by the App.
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">ℹ️</div>
+          <div class="callout-body">
+            <div class="callout-title">GDPR & Privacy Law Compliance</div>
+            <p>Because SecureGen does not collect, process, or transmit any personal data to any server or third party, it is compliant by design with GDPR, CCPA, and similar data protection regulations worldwide. There is no data controller or data processor to contact regarding external data — because there is none.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. CHANGES -->
+      <section class="section" id="s10">
+        <div class="section-header">
+          <span class="section-num">10</span>
+          <span class="section-icon">📝</span>
+          <h2>Changes to This Policy</h2>
+        </div>
+        <p>We may update this Privacy Policy as the App evolves. When we do, we will update the "Last Updated" date at the top of this page. For significant changes — especially any that introduce new data handling — we will notify users via an in-app message on the next App launch.</p>
+        <p>We encourage you to review this policy periodically. Continued use of the App after any changes constitutes your acceptance of the updated policy.</p>
+        <div class="callout callout-safe">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <div class="callout-title">Our Commitment</div>
+            <p>We will never introduce any form of external data collection, cloud sync, analytics, or advertising to SecureGen without a major version announcement and your explicit opt-in consent. The zero-server, zero-tracking principle is foundational to this App — not an optional feature.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11. CONTACT -->
+      <section class="section" id="s11">
+        <div class="section-header">
+          <span class="section-num">11</span>
+          <span class="section-icon">✉️</span>
+          <h2>Contact Us</h2>
+        </div>
+        <p>If you have questions, concerns, or feedback about this Privacy Policy or about how SecureGen handles data, please reach out. We take privacy questions seriously and will respond promptly.</p>
+
+        <div class="contact-card">
+          <h3>We're here to help</h3>
+          <p>Have a privacy question or concern? Get in touch with the SecureGen team directly.</p>
+          <div class="contact-info">
+            ✉️ &nbsp; privacy@securegen.app
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">🔐 SecureGen</div>
+    <div class="footer-divider"></div>
+    <div class="footer-sub">Privacy Policy &nbsp;·&nbsp; Version 1.0 &nbsp;·&nbsp; © 2025 SecureGen. All rights reserved.</div>
+    <div style="margin-top:12px;font-family:'DM Mono',monospace;font-size:11px;color:#334155;letter-spacing:0.06em;">
+      Your passwords. Your device. Your control.
+    </div>
+  </footer>
+
+</body>
+</html>
