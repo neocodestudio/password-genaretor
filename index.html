@@ -2,1194 +2,1330 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#0A0E1A"/>
   <title>SecureGen — Privacy Policy</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
-    /* ════════════════════════════════════════
-       DESIGN TOKENS
-    ════════════════════════════════════════ */
+    /* ─────────────────────────────────────────
+       TOKENS
+    ───────────────────────────────────────── */
     :root {
-      --bg:         #F4F6FB;
-      --card:       #FFFFFF;
-      --ink:        #0B1120;
-      --ink-2:      #374151;
-      --ink-3:      #6B7280;
-      --accent:     #1A56DB;
-      --accent-lt:  #EFF6FF;
-      --accent-bd:  #BFDBFE;
-      --cyan:       #0891B2;
-      --safe:       #059669;
-      --safe-lt:    #ECFDF5;
-      --safe-bd:    #A7F3D0;
-      --warn:       #D97706;
-      --warn-lt:    #FFFBEB;
-      --warn-bd:    #FDE68A;
-      --border:     #E5E7EB;
-      --shadow-sm:  0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
-      --shadow-md:  0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
-      --shadow-lg:  0 12px 40px rgba(0,0,0,.12);
-      --r:          14px;
-      --r-sm:       8px;
+      --bg:          #0A0E1A;
+      --bg-card:     #111827;
+      --bg-raised:   #1A2236;
+      --bg-subtle:   #141C2E;
+      --border:      rgba(255,255,255,.07);
+      --border-lit:  rgba(255,255,255,.12);
+      --ink:         #F1F5FE;
+      --ink-2:       #8FA3C4;
+      --ink-3:       #4E6285;
+      --blue:        #3D7BFF;
+      --blue-glow:   rgba(61,123,255,.18);
+      --blue-soft:   rgba(61,123,255,.1);
+      --blue-bd:     rgba(61,123,255,.3);
+      --cyan:        #22D4F0;
+      --green:       #10E8A0;
+      --green-soft:  rgba(16,232,160,.1);
+      --green-bd:    rgba(16,232,160,.3);
+      --amber:       #FFAD3B;
+      --amber-soft:  rgba(255,173,59,.1);
+      --amber-bd:    rgba(255,173,59,.3);
+      --red:         #FF5E6A;
+      --red-soft:    rgba(255,94,106,.1);
+      --red-bd:      rgba(255,94,106,.3);
+      --r:           16px;
+      --r-sm:        10px;
+      --r-pill:      100px;
     }
 
-    /* ════════════════════════════════════════
-       RESET & BASE
-    ════════════════════════════════════════ */
+    /* ─────────────────────────────────────────
+       RESET
+    ───────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
-      font-family: 'Lora', Georgia, serif;
+      font-family: 'Outfit', sans-serif;
       background: var(--bg);
       color: var(--ink);
-      line-height: 1.8;
+      line-height: 1.7;
+      min-height: 100vh;
       overflow-x: hidden;
+      /* Safe area for notched phones */
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
     }
 
-    /* ════════════════════════════════════════
-       HERO
-    ════════════════════════════════════════ */
-    .hero {
-      background: var(--ink);
-      position: relative;
-      overflow: hidden;
-      padding: 72px 40px 88px;
-    }
-    .hero::before {
+    /* ─────────────────────────────────────────
+       BACKGROUND MESH
+    ───────────────────────────────────────── */
+    body::before {
       content: '';
-      position: absolute; inset: 0;
+      position: fixed; inset: 0; z-index: 0;
       background:
-        radial-gradient(ellipse 600px 480px at -8% 0%,   rgba(26,86,219,.38) 0%, transparent 70%),
-        radial-gradient(ellipse 420px 360px at 108% 100%, rgba(8,145,178,.24) 0%, transparent 70%);
+        radial-gradient(ellipse 80vw 60vh at 50% -10%, rgba(61,123,255,.14) 0%, transparent 70%),
+        radial-gradient(ellipse 50vw 40vh at 100% 80%, rgba(34,212,240,.07) 0%, transparent 60%);
       pointer-events: none;
     }
-    .hero::after {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,.055) 1px, transparent 1px);
-      background-size: 32px 32px;
-      pointer-events: none;
+
+    /* ─────────────────────────────────────────
+       STICKY NAV BAR
+    ───────────────────────────────────────── */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(10,14,26,.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: calc(14px + env(safe-area-inset-top));
     }
-    .hero-inner {
-      position: relative; z-index: 2;
-      max-width: 900px; margin: 0 auto;
+    .nav-brand {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 17px; font-weight: 700; color: var(--ink);
+      letter-spacing: -.02em;
+    }
+    .nav-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: linear-gradient(135deg, #1D4ED8, #0891B2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.1);
+    }
+    .nav-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 400;
+      background: var(--blue-soft);
+      border: 1px solid var(--blue-bd);
+      border-radius: var(--r-pill);
+      padding: 3px 10px; color: var(--blue);
+      letter-spacing: .04em;
     }
 
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(26,86,219,.18);
-      border: 1px solid rgba(26,86,219,.44);
-      border-radius: 100px;
-      padding: 5px 16px 5px 10px;
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: #93C5FD;
-      margin-bottom: 28px;
-      animation: fadeDown .55s ease both;
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    .hero {
+      position: relative; z-index: 1;
+      padding: 44px 20px 36px;
+      text-align: center;
     }
-    .hero-badge .dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: #22D3EE;
-      box-shadow: 0 0 8px #22D3EE;
-      animation: blink 2.2s ease infinite;
-      flex-shrink: 0;
+    .hero-lock {
+      width: 72px; height: 72px;
+      margin: 0 auto 20px;
+      background: linear-gradient(145deg, #1a2d5a, #0d1c3d);
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 34px;
+      border: 1px solid rgba(61,123,255,.25);
+      box-shadow:
+        0 0 0 6px rgba(61,123,255,.06),
+        0 0 40px rgba(61,123,255,.12),
+        inset 0 1px 0 rgba(255,255,255,.08);
+      animation: lockPulse 3s ease infinite;
     }
-    @keyframes blink {
-      0%,100%{ opacity:1; transform:scale(1);   }
-      50%    { opacity:.4; transform:scale(1.5); }
+    @keyframes lockPulse {
+      0%,100% { box-shadow: 0 0 0 6px rgba(61,123,255,.06), 0 0 40px rgba(61,123,255,.12), inset 0 1px 0 rgba(255,255,255,.08); }
+      50%     { box-shadow: 0 0 0 10px rgba(61,123,255,.04), 0 0 60px rgba(61,123,255,.18), inset 0 1px 0 rgba(255,255,255,.08); }
     }
-
     .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(38px, 6.5vw, 68px);
-      font-weight: 800;
-      color: #fff;
-      line-height: 1.06;
-      letter-spacing: -.03em;
-      margin-bottom: 18px;
-      animation: fadeDown .55s .08s ease both;
+      font-size: 30px; font-weight: 800;
+      letter-spacing: -.03em; line-height: 1.1;
+      margin-bottom: 10px;
     }
-    .hero h1 em {
-      font-style: normal;
-      background: linear-gradient(130deg, #60A5FA 20%, #22D3EE 80%);
+    .hero h1 span {
+      background: linear-gradient(120deg, var(--blue), var(--cyan));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     .hero-sub {
-      font-family: 'Lora', serif;
-      font-style: italic;
-      font-size: 17px;
-      color: #94A3B8;
-      max-width: 540px;
-      margin-bottom: 40px;
-      animation: fadeDown .55s .16s ease both;
+      font-size: 15px; color: var(--ink-2);
+      line-height: 1.65; max-width: 320px;
+      margin: 0 auto 24px;
     }
-    .hero-chips {
-      display: flex; flex-wrap: wrap; gap: 10px;
-      animation: fadeDown .55s .24s ease both;
+    .hero-meta {
+      display: flex; flex-wrap: wrap;
+      gap: 8px; justify-content: center;
     }
-    .chip {
-      display: flex; flex-direction: column; gap: 2px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: var(--r-sm);
-      padding: 8px 16px;
+    .meta-chip {
+      display: flex; align-items: center; gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-lit);
+      border-radius: var(--r-pill);
+      padding: 5px 12px; color: var(--ink-2);
     }
-    .chip-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 9px; letter-spacing: .16em;
-      text-transform: uppercase; color: #475569;
+    .meta-dot {
+      width: 6px; height: 6px; border-radius: 50%;
     }
-    .chip-value {
-      font-family: 'DM Mono', monospace;
-      font-size: 13px; color: #CBD5E1;
-    }
+    .dot-blue  { background: var(--blue);  box-shadow: 0 0 6px var(--blue);  }
+    .dot-green { background: var(--green); box-shadow: 0 0 6px var(--green); }
+    .dot-amber { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
 
-    @keyframes fadeDown {
-      from { opacity:0; transform:translateY(-14px); }
-      to   { opacity:1; transform:translateY(0);     }
-    }
-
-    /* ════════════════════════════════════════
-       TRUST BAR
-    ════════════════════════════════════════ */
-    .trust-bar {
-      background: linear-gradient(95deg, #1A56DB 0%, #0891B2 100%);
-      display: flex; align-items: stretch;
-      justify-content: center; flex-wrap: wrap;
-      position: relative; overflow: hidden;
-    }
-    .trust-bar::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: repeating-linear-gradient(
-        90deg, rgba(255,255,255,.07) 0px, rgba(255,255,255,.07) 1px, transparent 1px, transparent 40px
-      );
-      pointer-events: none;
-    }
-    .trust-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 17px 28px;
-      color: #fff;
-      font-family: 'DM Mono', monospace;
-      font-size: 11.5px; letter-spacing: .07em;
-      border-right: 1px solid rgba(255,255,255,.12);
-      opacity: 0;
-      animation: fadeIn .45s ease forwards;
+    /* ─────────────────────────────────────────
+       TRUST PILLS ROW
+    ───────────────────────────────────────── */
+    .trust-row {
       position: relative; z-index: 1;
-      white-space: nowrap;
+      display: flex; gap: 10px;
+      overflow-x: auto; padding: 0 20px 4px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
     }
-    .trust-item:last-child { border-right: none; }
-    .trust-item:nth-child(1){ animation-delay:.35s; }
-    .trust-item:nth-child(2){ animation-delay:.45s; }
-    .trust-item:nth-child(3){ animation-delay:.55s; }
-    .trust-item:nth-child(4){ animation-delay:.65s; }
-    .t-icon {
-      width: 30px; height: 30px;
-      background: rgba(255,255,255,.14);
-      border-radius: 7px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 15px; flex-shrink: 0;
-    }
-    @keyframes fadeIn { to { opacity:1; } }
-
-    /* ════════════════════════════════════════
-       PAGE LAYOUT
-    ════════════════════════════════════════ */
-    .wrap {
-      max-width: 1120px; margin: 0 auto;
-      padding: 64px 40px 100px;
-      display: grid;
-      grid-template-columns: 226px 1fr;
-      gap: 56px;
-    }
-
-    /* ════════════════════════════════════════
-       SIDEBAR TOC
-    ════════════════════════════════════════ */
-    .sidebar {
-      position: sticky; top: 32px;
-      align-self: start;
-    }
-    .toc-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--ink-3);
-      margin-bottom: 14px; padding-left: 12px;
-    }
-    .toc { list-style: none; display: flex; flex-direction: column; gap: 2px; }
-    .toc a {
-      display: flex; align-items: center; gap: 10px;
-      padding: 8px 12px;
-      border-radius: var(--r-sm);
-      font-family: 'DM Mono', monospace;
-      font-size: 12px; color: var(--ink-2);
-      text-decoration: none;
-      border-left: 2px solid transparent;
-      transition: all .18s ease;
-    }
-    .toc a:hover {
-      color: var(--accent);
-      background: var(--accent-lt);
-      border-left-color: var(--accent);
-      padding-left: 16px;
-    }
-    .toc-num { font-size: 10px; color: var(--ink-3); min-width: 18px; }
-    .toc-divider { height: 1px; background: var(--border); margin: 8px 12px; }
-
-    /* ════════════════════════════════════════
-       SECTIONS
-    ════════════════════════════════════════ */
-    .section { margin-bottom: 60px; opacity:0; transform:translateY(20px); animation: riseIn .55s ease forwards; }
-    .section:nth-child(1) { animation-delay:.08s; }
-    .section:nth-child(2) { animation-delay:.13s; }
-    .section:nth-child(3) { animation-delay:.18s; }
-    .section:nth-child(4) { animation-delay:.23s; }
-    .section:nth-child(5) { animation-delay:.28s; }
-    .section:nth-child(6) { animation-delay:.33s; }
-    .section:nth-child(7) { animation-delay:.38s; }
-    .section:nth-child(8) { animation-delay:.43s; }
-    .section:nth-child(9) { animation-delay:.48s; }
-    .section:nth-child(10){ animation-delay:.53s; }
-    .section:nth-child(11){ animation-delay:.58s; }
-    .section:nth-child(12){ animation-delay:.63s; }
-    @keyframes riseIn { to { opacity:1; transform:translateY(0); } }
-
-    .sec-head {
-      display: flex; align-items: center; gap: 14px;
-      margin-bottom: 20px;
-      padding-bottom: 18px;
-      border-bottom: 1.5px solid var(--border);
-    }
-    .sec-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px; letter-spacing: .1em;
-      color: var(--accent);
-      background: var(--accent-lt);
-      border: 1px solid var(--accent-bd);
-      border-radius: 6px;
-      padding: 4px 10px;
+    .trust-row::-webkit-scrollbar { display: none; }
+    .trust-pill {
       flex-shrink: 0;
+      display: flex; align-items: center; gap: 7px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-lit);
+      border-radius: var(--r-pill);
+      padding: 9px 14px;
+      font-size: 12px; font-weight: 500;
+      color: var(--ink-2); white-space: nowrap;
     }
-    .sec-icon { font-size: 22px; flex-shrink: 0; line-height: 1; }
-    .section h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 21px; font-weight: 700;
-      color: var(--ink); letter-spacing: -.02em;
+    .trust-pill-icon {
+      width: 22px; height: 22px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; flex-shrink: 0;
     }
-    .sub-h {
-      font-family: 'Syne', sans-serif;
-      font-size: 15px; font-weight: 700;
-      color: var(--ink-2);
-      margin: 28px 0 12px;
-      padding-left: 12px;
-      border-left: 3px solid var(--accent);
-    }
-    .section p {
-      font-size: 15.5px; color: var(--ink-2);
-      line-height: 1.82; margin-bottom: 14px;
-    }
-    .section p:last-child { margin-bottom: 0; }
-    .section p strong { color: var(--ink); }
+    .tp-blue   { background: var(--blue-soft);  }
+    .tp-green  { background: var(--green-soft); }
+    .tp-amber  { background: var(--amber-soft); }
+    .tp-red    { background: var(--red-soft);   }
 
-    /* ════════════════════════════════════════
-       CALLOUTS
-    ════════════════════════════════════════ */
-    .callout {
-      display: flex; gap: 14px; align-items: flex-start;
+    /* ─────────────────────────────────────────
+       MAIN CONTENT
+    ───────────────────────────────────────── */
+    .content {
+      position: relative; z-index: 1;
+      padding: 28px 16px 80px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ─────────────────────────────────────────
+       SECTION BLOCKS
+    ───────────────────────────────────────── */
+    .block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
       border-radius: var(--r);
-      padding: 18px 20px;
-      margin: 20px 0;
+      margin-bottom: 14px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(18px);
+      animation: blockIn .5s ease forwards;
+    }
+    .block:nth-child(1)  { animation-delay: .04s; }
+    .block:nth-child(2)  { animation-delay: .08s; }
+    .block:nth-child(3)  { animation-delay: .12s; }
+    .block:nth-child(4)  { animation-delay: .16s; }
+    .block:nth-child(5)  { animation-delay: .20s; }
+    .block:nth-child(6)  { animation-delay: .24s; }
+    .block:nth-child(7)  { animation-delay: .28s; }
+    .block:nth-child(8)  { animation-delay: .32s; }
+    .block:nth-child(9)  { animation-delay: .36s; }
+    .block:nth-child(10) { animation-delay: .40s; }
+    .block:nth-child(11) { animation-delay: .44s; }
+    .block:nth-child(12) { animation-delay: .48s; }
+    @keyframes blockIn { to { opacity:1; transform:translateY(0); } }
+
+    /* Accordion behavior */
+    .block-toggle { display: none; }
+    .block-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 18px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: background .2s;
+    }
+    .block-header:active { background: var(--bg-raised); }
+    .block-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .bi-blue   { background: var(--blue-soft);  border: 1px solid var(--blue-bd);  }
+    .bi-green  { background: var(--green-soft); border: 1px solid var(--green-bd); }
+    .bi-amber  { background: var(--amber-soft); border: 1px solid var(--amber-bd); }
+    .bi-red    { background: var(--red-soft);   border: 1px solid var(--red-bd);   }
+    .bi-purple { background: rgba(162,112,255,.1); border:1px solid rgba(162,112,255,.3); }
+    .block-head-text { flex: 1; min-width: 0; }
+    .block-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--ink-3);
+      letter-spacing: .1em; margin-bottom: 2px; display: block;
+    }
+    .block-title {
+      font-size: 15px; font-weight: 700;
+      color: var(--ink); letter-spacing: -.01em;
+      white-space: nowrap; overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .block-chevron {
+      width: 24px; height: 24px; flex-shrink: 0;
+      border-radius: 6px;
+      background: var(--bg-raised);
+      border: 1px solid var(--border-lit);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .28s cubic-bezier(.4,0,.2,1), background .2s;
+    }
+    .block-chevron svg {
+      width: 12px; height: 12px;
+      stroke: var(--ink-3); fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      transition: stroke .2s;
+    }
+    /* open state */
+    .block-toggle:checked ~ .block-header .block-chevron {
+      transform: rotate(180deg);
+      background: var(--blue-soft);
+      border-color: var(--blue-bd);
+    }
+    .block-toggle:checked ~ .block-header .block-chevron svg { stroke: var(--blue); }
+    .block-toggle:checked ~ .block-header .block-title { color: var(--blue); }
+
+    .block-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .38s cubic-bezier(.4,0,.2,1);
+      border-top: 0px solid var(--border);
+    }
+    .block-toggle:checked ~ .block-body {
+      max-height: 2000px;
+      border-top-width: 1px;
+    }
+    .block-inner { padding: 18px 18px 20px; }
+
+    /* ─────────────────────────────────────────
+       TYPOGRAPHY IN BLOCKS
+    ───────────────────────────────────────── */
+    .body-text {
+      font-size: 14px; color: var(--ink-2);
+      line-height: 1.78; margin-bottom: 14px;
+    }
+    .body-text:last-child { margin-bottom: 0; }
+    .body-text strong { color: var(--ink); font-weight: 600; }
+
+    /* ─────────────────────────────────────────
+       CALLOUT BOXES
+    ───────────────────────────────────────── */
+    .callout {
+      border-radius: var(--r-sm);
+      padding: 13px 15px;
+      margin: 14px 0;
+      display: flex; gap: 10px; align-items: flex-start;
       border: 1px solid;
     }
-    .c-safe  { background: var(--safe-lt);  border-color: var(--safe-bd);  }
-    .c-warn  { background: var(--warn-lt);  border-color: var(--warn-bd);  }
-    .c-info  { background: var(--accent-lt); border-color: var(--accent-bd); }
-    .callout-ico { font-size: 20px; margin-top: 2px; flex-shrink: 0; }
-    .callout-body { flex: 1; min-width: 0; }
+    .callout:first-child { margin-top: 0; }
+    .callout:last-child  { margin-bottom: 0; }
+    .c-blue   { background: var(--blue-soft);  border-color: var(--blue-bd);  }
+    .c-green  { background: var(--green-soft); border-color: var(--green-bd); }
+    .c-amber  { background: var(--amber-soft); border-color: var(--amber-bd); }
+    .callout-emoji { font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+    .callout-body  { flex: 1; min-width: 0; }
     .callout-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700; font-size: 13.5px; margin-bottom: 5px;
+      font-size: 13px; font-weight: 700; margin-bottom: 3px;
     }
-    .c-safe  .callout-title { color: var(--safe);   }
-    .c-warn  .callout-title { color: var(--warn);   }
-    .c-info  .callout-title { color: var(--accent); }
-    .callout p { font-size: 14px; line-height: 1.72; margin: 0; }
-    .c-safe p  { color: #065F46; }
-    .c-warn p  { color: #78350F; }
-    .c-info p  { color: #1E40AF; }
+    .c-blue  .callout-title { color: var(--blue);  }
+    .c-green .callout-title { color: var(--green); }
+    .c-amber .callout-title { color: var(--amber); }
+    .callout p { font-size: 13px; line-height: 1.68; margin: 0; }
+    .c-blue  p { color: #7AAFFF; }
+    .c-green p { color: #5AEBB8; }
+    .c-amber p { color: #FFD285; }
 
-    /* ════════════════════════════════════════
-       TABLES
-    ════════════════════════════════════════ */
-    .tbl {
-      border-radius: var(--r);
-      overflow: hidden;
+    /* ─────────────────────────────────────────
+       DATA TABLE (mobile scroll)
+    ───────────────────────────────────────── */
+    .tbl-scroll {
+      overflow-x: auto; margin: 14px 0;
+      border-radius: var(--r-sm);
       border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      margin: 20px 0;
+      -webkit-overflow-scrolling: touch;
     }
-    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 360px; }
     thead th {
-      background: var(--ink); color: #fff;
-      font-family: 'DM Mono', monospace;
-      font-size: 10.5px; letter-spacing: .12em;
-      text-transform: uppercase;
-      padding: 13px 16px; text-align: left; font-weight: 400;
-    }
-    tbody tr:nth-child(odd)  td { background: #fff; }
-    tbody tr:nth-child(even) td { background: #F9FAFB; }
-    tbody tr:hover td { background: var(--accent-lt); }
-    tbody td {
-      padding: 13px 16px; color: var(--ink-2);
+      background: var(--bg-raised);
+      color: var(--ink-3);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase;
+      padding: 10px 12px; text-align: left; font-weight: 400;
       border-bottom: 1px solid var(--border);
-      vertical-align: top; line-height: 1.65;
+      white-space: nowrap;
+    }
+    tbody td {
+      padding: 10px 12px; color: var(--ink-2);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top; line-height: 1.55;
     }
     tbody tr:last-child td { border-bottom: none; }
-    tbody td strong { color: var(--ink); font-size: 13.5px; }
+    tbody tr:nth-child(even) td { background: rgba(255,255,255,.02); }
+    tbody td strong { color: var(--ink); font-size: 12.5px; font-weight: 600; }
     .td-note {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px; color: var(--ink-3);
-      display: block; margin-top: 3px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--ink-3);
+      display: block; margin-top: 2px;
     }
     .tag {
       display: inline-block;
-      font-family: 'DM Mono', monospace;
-      font-size: 11px; padding: 3px 9px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; padding: 2px 7px;
       border-radius: 5px; white-space: nowrap;
     }
-    .t-never  { background:#FEE2E2; color:#991B1B; }
-    .t-local  { background:#D1FAE5; color:#065F46; }
-    .t-device { background:var(--accent-lt); color:#1E40AF; }
-    .t-google { background:#FEF3C7; color:#92400E; }
+    .t-never  { background: var(--red-soft);   color: var(--red);   border: 1px solid var(--red-bd);   }
+    .t-local  { background: var(--green-soft); color: var(--green); border: 1px solid var(--green-bd); }
+    .t-device { background: var(--blue-soft);  color: var(--blue);  border: 1px solid var(--blue-bd);  }
+    .t-google { background: var(--amber-soft); color: var(--amber); border: 1px solid var(--amber-bd); }
 
-    /* ════════════════════════════════════════
-       CARD GRID
-    ════════════════════════════════════════ */
-    .grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 12px; margin: 20px 0;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 16px 18px;
+    /* ─────────────────────────────────────────
+       ROW LIST (permissions / steps)
+    ───────────────────────────────────────── */
+    .row-list { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
+    .row-list:first-child { margin-top: 0; }
+    .row-item {
+      background: var(--bg-raised);
+      border: 1px solid var(--border-lit);
+      border-radius: var(--r-sm);
+      padding: 12px 14px;
       display: flex; gap: 12px; align-items: flex-start;
-      box-shadow: var(--shadow-sm);
-      transition: transform .18s, box-shadow .18s, border-color .18s;
     }
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--accent-bd);
+    .row-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px; border-radius: 6px;
+      padding: 4px 10px; flex-shrink: 0;
+      align-self: flex-start; white-space: nowrap;
     }
-    .card.card-warn {
-      border-color: var(--warn-bd);
-      background: var(--warn-lt);
+    .rt-blue   { background: var(--blue-soft);  border:1px solid var(--blue-bd);  color: var(--blue);  }
+    .rt-green  { background: var(--green-soft); border:1px solid var(--green-bd); color: var(--green); }
+    .rt-amber  { background: var(--amber-soft); border:1px solid var(--amber-bd); color: var(--amber); }
+    .row-desc {
+      font-size: 13px; color: var(--ink-2);
+      line-height: 1.65; flex: 1;
     }
-    .card.card-warn:hover { border-color: var(--warn); }
-    .card-ico {
-      width: 26px; height: 26px; border-radius: 7px;
+    .row-desc strong { color: var(--ink); font-weight: 600; }
+
+    /* ─────────────────────────────────────────
+       MINI CARD GRID
+    ───────────────────────────────────────── */
+    .mini-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; margin: 14px 0;
+    }
+    .mini-card {
+      background: var(--bg-raised);
+      border: 1px solid var(--border-lit);
+      border-radius: var(--r-sm);
+      padding: 12px;
+    }
+    .mini-ico {
+      width: 28px; height: 28px; border-radius: 7px;
+      background: var(--blue-soft); border: 1px solid var(--blue-bd);
       display: flex; align-items: center; justify-content: center;
-      font-size: 13px; flex-shrink: 0; margin-top: 1px;
+      font-size: 14px; margin-bottom: 8px;
     }
-    .ico-check { background: #D1FAE5; }
-    .ico-cross  { background: #FEE2E2; }
-    .ico-info   { background: var(--accent-lt); }
-    .ico-warn   { background: #FEF3C7; }
-    .card-body  { flex: 1; min-width: 0; }
-    .card-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 13px; font-weight: 700;
-      color: var(--ink); margin-bottom: 4px; display: block;
-    }
-    .card-text {
-      font-family: 'Lora', serif;
-      font-size: 13.5px; color: var(--ink-2);
-      line-height: 1.65; margin: 0;
-    }
+    .mini-ico.ico-green { background: var(--green-soft); border-color: var(--green-bd); }
+    .mini-ico.ico-red   { background: var(--red-soft);   border-color: var(--red-bd);   }
+    .mini-ico.ico-amber { background: var(--amber-soft); border-color: var(--amber-bd); }
+    .mini-title { font-size: 12.5px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+    .mini-text  { font-size: 12px; color: var(--ink-2); line-height: 1.6; }
 
-    /* ════════════════════════════════════════
-       PERMISSION LIST
-    ════════════════════════════════════════ */
-    .perm-list { display:flex; flex-direction:column; gap:10px; margin:20px 0; }
-    .perm-row {
-      display: flex; gap: 14px; align-items: flex-start;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 14px 18px;
-      box-shadow: var(--shadow-sm);
-      transition: border-color .18s, box-shadow .18s;
-    }
-    .perm-row:hover { border-color: var(--accent-bd); box-shadow: var(--shadow-md); }
-    .perm-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 11.5px;
-      border-radius: 6px; padding: 5px 12px;
-      white-space: nowrap; flex-shrink: 0;
-      align-self: flex-start; min-width: 192px; text-align: center;
-    }
-    .pt-accent { background:var(--accent-lt); border:1px solid var(--accent-bd); color:var(--accent); }
-    .pt-warn   { background:var(--warn-lt);   border:1px solid var(--warn-bd);   color:var(--warn);   }
-    .pt-safe   { background:var(--safe-lt);   border:1px solid var(--safe-bd);   color:var(--safe);   }
-    .perm-desc {
-      font-family: 'Lora', serif;
-      font-size: 14px; color: var(--ink-2); line-height: 1.7;
-    }
-    .perm-desc strong { color: var(--ink); }
-
-    /* ════════════════════════════════════════
-       SECURITY DARK PANEL
-    ════════════════════════════════════════ */
+    /* ─────────────────────────────────────────
+       SECURITY STACK (dark panel)
+    ───────────────────────────────────────── */
     .sec-panel {
-      background: var(--ink);
-      border-radius: var(--r);
-      padding: 28px;
-      margin: 20px 0;
+      background: #080D1A;
+      border-radius: var(--r-sm);
+      border: 1px solid rgba(61,123,255,.2);
+      padding: 16px; margin: 14px 0;
       position: relative; overflow: hidden;
     }
     .sec-panel::before {
-      content:'';
-      position:absolute; top:-60px; right:-60px;
-      width:260px; height:260px;
-      background:radial-gradient(circle,rgba(26,86,219,.28),transparent 70%);
-      pointer-events:none;
+      content: '';
+      position: absolute; top: -30px; right: -30px;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle, rgba(61,123,255,.2), transparent 70%);
+      pointer-events: none;
     }
-    .sec-panel::after {
-      content:'';
-      position:absolute; bottom:-40px; left:-40px;
-      width:180px; height:180px;
-      background:radial-gradient(circle,rgba(8,145,178,.18),transparent 70%);
-      pointer-events:none;
+    .sec-panel-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--ink-3);
+      margin-bottom: 12px; position: relative; z-index: 1;
     }
-    .sec-label {
-      font-family:'DM Mono',monospace;
-      font-size:10px; letter-spacing:.18em;
-      text-transform:uppercase; color:#475569;
-      margin-bottom:18px; position:relative; z-index:1;
-    }
-    .sec-layers { display:flex; flex-direction:column; gap:8px; position:relative; z-index:1; }
+    .sec-layers { display: flex; flex-direction: column; gap: 6px; position: relative; z-index: 1; }
     .sec-layer {
-      display:flex; align-items:center; gap:14px;
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:10px; padding:12px 16px;
-      transition:background .2s, border-color .2s;
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 8px; padding: 10px 12px;
     }
-    .sec-layer:hover { background:rgba(26,86,219,.16); border-color:rgba(26,86,219,.4); }
-    .sl-icon { font-size:18px; flex-shrink:0; }
-    .sl-info { flex:1; min-width:0; }
-    .sl-name {
-      font-family:'Syne',sans-serif;
-      font-size:13.5px; font-weight:700; color:#E2E8F0; margin-bottom:2px;
+    .sl-icon { font-size: 16px; flex-shrink: 0; }
+    .sl-info { flex: 1; min-width: 0; }
+    .sl-name { font-size: 13px; font-weight: 600; color: #D1DBF5; }
+    .sl-desc {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--ink-3);
+      margin-top: 1px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .sl-desc { font-family:'DM Mono',monospace; font-size:11px; color:#64748B; }
     .sl-tag {
-      font-family:'DM Mono',monospace; font-size:10px;
-      padding:3px 9px; border-radius:5px;
-      background:rgba(26,86,219,.28); color:#93C5FD;
-      border:1px solid rgba(26,86,219,.4);
-      flex-shrink:0; white-space:nowrap;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px; padding: 3px 8px; border-radius: 5px;
+      background: rgba(61,123,255,.2); color: #7AAFFF;
+      border: 1px solid rgba(61,123,255,.3);
+      flex-shrink: 0; white-space: nowrap;
     }
 
-    /* ════════════════════════════════════════
-       ADMOB NOTICE PANEL
-    ════════════════════════════════════════ */
-    .admob-notice {
-      background: var(--warn-lt);
-      border: 1px solid var(--warn-bd);
-      border-radius: var(--r);
-      padding: 20px 22px;
-      margin: 20px 0;
-      display: flex; gap: 16px; align-items: flex-start;
+    /* ─────────────────────────────────────────
+       ADMOB PANEL
+    ───────────────────────────────────────── */
+    .admob-panel {
+      background: linear-gradient(135deg, rgba(255,173,59,.08), rgba(255,173,59,.03));
+      border: 1px solid var(--amber-bd);
+      border-radius: var(--r-sm);
+      padding: 14px; margin: 14px 0;
+      display: flex; gap: 12px; align-items: flex-start;
     }
-    .admob-logo {
-      width: 44px; height: 44px; flex-shrink: 0;
-      border-radius: 10px;
-      background: linear-gradient(135deg,#4285F4 0%,#34A853 50%,#FBBC04 75%,#EA4335 100%);
+    .admob-g-logo {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: linear-gradient(135deg, #4285F4 0%, #34A853 40%, #FBBC04 70%, #EA4335 100%);
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Syne',sans-serif; font-weight:800;
-      font-size: 20px; color:#fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,.18);
+      font-family: 'Outfit', sans-serif; font-weight: 800;
+      font-size: 18px; color: #fff; flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,.3);
     }
-    .admob-body { flex:1; }
+    .admob-body { flex: 1; }
     .admob-title {
-      font-family:'Syne',sans-serif; font-size:14px;
-      font-weight:700; color:var(--warn); margin-bottom:5px;
+      font-size: 13px; font-weight: 700;
+      color: var(--amber); margin-bottom: 4px;
     }
-    .admob-text { font-size:14px; color:#78350F; line-height:1.72; margin:0; }
+    .admob-text { font-size: 13px; color: #FFD285; line-height: 1.65; }
 
-    /* ════════════════════════════════════════
-       OPT-OUT STEPS
-    ════════════════════════════════════════ */
-    .steps { display:flex; flex-direction:column; gap:10px; margin:20px 0; }
-    .step {
-      display:flex; gap:14px; align-items:flex-start;
-      background:var(--card); border:1px solid var(--border);
-      border-radius:var(--r); padding:14px 18px;
-      box-shadow:var(--shadow-sm);
+    /* opt-out steps */
+    .steps { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
+    .step-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--bg-raised);
+      border: 1px solid var(--border-lit);
+      border-radius: var(--r-sm); padding: 12px;
     }
     .step-num {
-      width:28px; height:28px; border-radius:50%;
-      background:var(--accent); color:#fff;
-      font-family:'DM Mono',monospace; font-size:12px; font-weight:700;
-      display:flex; align-items:center; justify-content:center;
-      flex-shrink:0; margin-top:1px;
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--blue); color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+      box-shadow: 0 0 8px rgba(61,123,255,.4);
     }
-    .step-body { flex:1; }
-    .step-title {
-      font-family:'Syne',sans-serif; font-size:13.5px;
-      font-weight:700; color:var(--ink); margin-bottom:4px;
-    }
-    .step-desc { font-size:13.5px; color:var(--ink-2); line-height:1.65; }
-    .step-path {
-      font-family:'DM Mono',monospace; font-size:11.5px;
-      background:var(--bg); border:1px solid var(--border);
-      border-radius:5px; padding:2px 8px; color:var(--accent);
+    .step-body { flex: 1; }
+    .step-title { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+    .step-text  { font-size: 13px; color: var(--ink-2); line-height: 1.6; }
+    .path-chip {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      background: var(--bg-card); border: 1px solid var(--border-lit);
+      border-radius: 5px; padding: 1px 7px; color: var(--cyan);
     }
 
-    /* ════════════════════════════════════════
+    /* ─────────────────────────────────────────
+       RIGHTS CHECK GRID
+    ───────────────────────────────────────── */
+    .rights-grid { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
+    .right-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: var(--bg-raised); border: 1px solid var(--border-lit);
+      border-radius: var(--r-sm); padding: 11px 13px;
+    }
+    .right-check {
+      width: 20px; height: 20px; border-radius: 6px;
+      background: var(--green-soft); border: 1px solid var(--green-bd);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; flex-shrink: 0; margin-top: 1px;
+      color: var(--green);
+    }
+    .right-body { flex: 1; }
+    .right-title { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+    .right-desc  { font-size: 12.5px; color: var(--ink-2); line-height: 1.6; }
+
+    /* ─────────────────────────────────────────
        CONTACT CARD
-    ════════════════════════════════════════ */
+    ───────────────────────────────────────── */
     .contact-card {
-      background:var(--ink); border-radius:var(--r);
-      padding:40px; text-align:center;
-      position:relative; overflow:hidden;
-      box-shadow:var(--shadow-lg);
+      background: linear-gradient(135deg, #0D1835, #0A1124);
+      border: 1px solid rgba(61,123,255,.25);
+      border-radius: var(--r);
+      padding: 28px 20px;
+      text-align: center;
+      position: relative; overflow: hidden;
+      margin-top: 14px;
+      box-shadow: 0 0 40px rgba(61,123,255,.08);
     }
     .contact-card::before {
-      content:'';
-      position:absolute; top:-80px; left:50%;
-      transform:translateX(-50%);
-      width:360px; height:240px;
-      background:radial-gradient(circle,rgba(26,86,219,.4),transparent 70%);
-      pointer-events:none;
+      content: '';
+      position: absolute; top: -50px; left: 50%;
+      transform: translateX(-50%);
+      width: 200px; height: 160px;
+      background: radial-gradient(circle, rgba(61,123,255,.3), transparent 70%);
+      pointer-events: none;
     }
     .contact-card h3 {
-      font-family:'Syne',sans-serif; font-size:22px;
-      font-weight:800; color:#fff; margin-bottom:8px;
-      position:relative; z-index:1;
+      font-size: 18px; font-weight: 800;
+      color: var(--ink); margin-bottom: 6px;
+      position: relative; z-index: 1;
     }
     .contact-card p {
-      font-size:15px; color:#94A3B8;
-      margin-bottom:24px;
-      position:relative; z-index:1;
+      font-size: 13.5px; color: var(--ink-2);
+      margin-bottom: 20px; position: relative; z-index: 1;
     }
-    .contact-pill {
-      display:inline-flex; align-items:center; gap:10px;
-      background:rgba(26,86,219,.2);
-      border:1px solid rgba(26,86,219,.45);
-      border-radius:12px; padding:13px 26px;
-      font-family:'DM Mono',monospace; font-size:14px;
-      color:#93C5FD; text-decoration:none;
-      position:relative; z-index:1;
-      transition:background .2s;
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(61,123,255,.15);
+      border: 1px solid rgba(61,123,255,.35);
+      border-radius: 12px; padding: 12px 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; color: #7AAFFF;
+      text-decoration: none;
+      position: relative; z-index: 1;
+      -webkit-tap-highlight-color: transparent;
+      transition: background .2s;
     }
-    .contact-pill:hover { background:rgba(26,86,219,.35); }
+    .contact-link:active { background: rgba(61,123,255,.28); }
 
-    /* ════════════════════════════════════════
-       FOOTER
-    ════════════════════════════════════════ */
+    /* ─────────────────────────────────────────
+       BOTTOM SHEET FOOTER
+    ───────────────────────────────────────── */
     footer {
-      background:var(--ink);
-      padding:44px 40px;
-      text-align:center;
+      position: relative; z-index: 1;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 20px 20px;
+      padding-bottom: calc(20px + env(safe-area-inset-bottom));
+      text-align: center;
     }
     .footer-logo {
-      font-family:'Syne',sans-serif; font-size:19px;
-      font-weight:800; color:#fff; margin-bottom:10px;
+      font-size: 16px; font-weight: 800;
+      color: var(--ink); margin-bottom: 4px;
     }
     .footer-rule {
-      width:36px; height:2.5px;
-      background:linear-gradient(90deg,var(--accent),var(--cyan));
-      border-radius:2px; margin:0 auto 14px;
+      width: 28px; height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      border-radius: 2px; margin: 8px auto 10px;
     }
-    .footer-line {
-      font-family:'DM Mono',monospace;
-      font-size:11.5px; color:#475569;
-      letter-spacing:.06em; margin-bottom:8px;
-    }
-    .footer-tag {
-      font-family:'DM Mono',monospace;
-      font-size:11px; color:#334155; letter-spacing:.05em;
+    .footer-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px; color: var(--ink-3);
+      letter-spacing: .05em;
     }
 
-    /* ════════════════════════════════════════
-       RESPONSIVE
-    ════════════════════════════════════════ */
-    @media(max-width:820px){
-      .wrap{ grid-template-columns:1fr; padding:40px 20px 80px; gap:0; }
-      .sidebar{ display:none; }
-      .grid{ grid-template-columns:1fr; }
-      .hero{ padding:56px 20px 72px; }
-      .perm-tag{ min-width:unset; }
-      .perm-row{ flex-direction:column; }
-      .contact-card{ padding:28px 20px; }
+    /* ─────────────────────────────────────────
+       DIVIDER
+    ───────────────────────────────────────── */
+    .divider {
+      height: 1px; background: var(--border);
+      margin: 14px 0;
     }
-    @media(max-width:520px){
-      .trust-bar{ flex-direction:column; }
-      .trust-item{ border-right:none; border-bottom:1px solid rgba(255,255,255,.12); }
-      .trust-item:last-child{ border-bottom:none; }
+
+    /* ─────────────────────────────────────────
+       SECTION LABEL (above block group)
+    ───────────────────────────────────────── */
+    .group-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--ink-3);
+      padding: 20px 4px 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .group-label::after {
+      content: '';
+      flex: 1; height: 1px; background: var(--border);
+    }
+
+    /* ─────────────────────────────────────────
+       SCROLL-TO-TOP FAB
+    ───────────────────────────────────────── */
+    .fab {
+      position: fixed;
+      bottom: calc(24px + env(safe-area-inset-bottom));
+      right: 16px; z-index: 40;
+      width: 44px; height: 44px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--blue), #0558cc);
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(61,123,255,.4);
+      opacity: 0; transform: translateY(10px);
+      transition: opacity .3s, transform .3s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .fab.visible { opacity: 1; transform: translateY(0); }
+    .fab:active { transform: scale(.93); }
+    .fab svg {
+      width: 18px; height: 18px;
+      stroke: #fff; fill: none;
+      stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
     }
   </style>
 </head>
 <body>
 
-<!-- ═══════════════ HERO ═══════════════ -->
-<header class="hero">
-  <div class="hero-inner">
-    <div class="hero-badge"><span class="dot"></span>Legal Document</div>
-    <h1>Privacy <em>Policy</em></h1>
-    <p class="hero-sub">SecureGen keeps your passwords strictly on-device — and is fully transparent about how ads work in this App.</p>
-    <div class="hero-chips">
-      <div class="chip"><span class="chip-label">App</span><span class="chip-value">SecureGen</span></div>
-      <div class="chip"><span class="chip-label">Platform</span><span class="chip-value">Android · Flutter</span></div>
-      <div class="chip"><span class="chip-label">Version</span><span class="chip-value">1.0</span></div>
-      <div class="chip"><span class="chip-label">Effective</span><span class="chip-value">2025</span></div>
-      <div class="chip"><span class="chip-label">Last Updated</span><span class="chip-value">2025</span></div>
+<!-- ─── STICKY NAV ─── -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-icon">🔐</div>
+    SecureGen
+  </div>
+  <span class="nav-badge">Privacy Policy</span>
+</nav>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <div class="hero-lock">🛡️</div>
+  <h1>Privacy <span>Policy</span></h1>
+  <p class="hero-sub">Your passwords never leave your device. Here's everything we're transparent about.</p>
+  <div class="hero-meta">
+    <div class="meta-chip"><span class="meta-dot dot-blue"></span>App: SecureGen</div>
+    <div class="meta-chip"><span class="meta-dot dot-green"></span>Platform: Android</div>
+    <div class="meta-chip"><span class="meta-dot dot-amber"></span>Version 1.0 · 2025</div>
+  </div>
+</div>
+
+<!-- ─── TRUST PILLS ─── -->
+<div class="trust-row">
+  <div class="trust-pill">
+    <div class="trust-pill-icon tp-blue">🚫</div>No Server Storage
+  </div>
+  <div class="trust-pill">
+    <div class="trust-pill-icon tp-green">☁️</div>No Cloud Sync
+  </div>
+  <div class="trust-pill">
+    <div class="trust-pill-icon tp-amber">📢</div>AdMob Disclosed
+  </div>
+  <div class="trust-pill">
+    <div class="trust-pill-icon tp-red">🔒</div>AES-256 Encrypted
+  </div>
+  <div class="trust-pill">
+    <div class="trust-pill-icon tp-blue">🆓</div>No Account Needed
+  </div>
+</div>
+
+<!-- ─── MAIN CONTENT ─── -->
+<div class="content">
+
+  <!-- ═══ GROUP: VAULT PRIVACY ═══ -->
+  <div class="group-label">Vault &amp; Data</div>
+
+  <!-- 01 OVERVIEW -->
+  <div class="block">
+    <input type="checkbox" class="block-toggle" id="t01">
+    <label class="block-header" for="t01">
+      <div class="block-icon bi-blue">🛡️</div>
+      <div class="block-head-text">
+        <span class="block-num">01 · OVERVIEW</span>
+        <div class="block-title">What This Policy Covers</div>
+      </div>
+      <div class="block-chevron">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </label>
+    <div class="block-body">
+      <div class="block-inner">
+        <p class="body-text">SecureGen ("the App", "we", "our") is a password generator and vault app for Android built with Flutter. This Privacy Policy explains what data the App interacts with, how it is handled, and what protections are in place.</p>
+        <p class="body-text">SecureGen operates on a <strong>privacy-by-design</strong> principle. No backend server. No cloud service. No transmission of your vault data — ever. The App does display ads via <strong>Google AdMob</strong>, which is fully disclosed in Section 07.</p>
+        <div class="callout c-green">
+          <span class="callout-emoji">✅</span>
+          <div class="callout-body">
+            <div class="callout-title">Core Promise</div>
+            <p>Your saved passwords, Master Password hash, and all vault data will never be collected, transmitted, sold, or stored on any external server. The only third-party data interaction is Google AdMob for ads.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</header>
 
-<!-- ═══════════════ TRUST BAR ═══════════════ -->
-<div class="trust-bar">
-  <div class="trust-item"><div class="t-icon">🚫</div>NO SERVER STORAGE</div>
-  <div class="trust-item"><div class="t-icon">☁️</div>NO CLOUD SYNC</div>
-  <div class="trust-item"><div class="t-icon">📢</div>ADMOB ADS DISCLOSED</div>
-  <div class="trust-item"><div class="t-icon">🔒</div>AES-256 ENCRYPTED</div>
-</div>
-
-<!-- ═══════════════ BODY ═══════════════ -->
-<div class="wrap">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <p class="toc-label">Contents</p>
-    <ul class="toc">
-      <li><a href="#s1"><span class="toc-num">01</span>Overview</a></li>
-      <li><a href="#s2"><span class="toc-num">02</span>Data We Collect</a></li>
-      <li><a href="#s3"><span class="toc-num">03</span>Data We Don't Collect</a></li>
-      <li><a href="#s4"><span class="toc-num">04</span>How Data Is Stored</a></li>
-      <li><a href="#s5"><span class="toc-num">05</span>Security Architecture</a></li>
-      <li><a href="#s6"><span class="toc-num">06</span>Internet Requirement</a></li>
-      <div class="toc-divider"></div>
-      <li><a href="#s7"><span class="toc-num">07</span>Advertising — AdMob</a></li>
-      <div class="toc-divider"></div>
-      <li><a href="#s8"><span class="toc-num">08</span>Android Permissions</a></li>
-      <li><a href="#s9"><span class="toc-num">09</span>Children's Privacy</a></li>
-      <li><a href="#s10"><span class="toc-num">10</span>Your Rights</a></li>
-      <li><a href="#s11"><span class="toc-num">11</span>Policy Changes</a></li>
-      <li><a href="#s12"><span class="toc-num">12</span>Contact Us</a></li>
-    </ul>
-  </aside>
-
-  <!-- MAIN CONTENT -->
-  <main>
-
-    <!-- 01 OVERVIEW -->
-    <section class="section" id="s1">
-      <div class="sec-head">
-        <span class="sec-num">01</span>
-        <span class="sec-icon">🛡️</span>
-        <h2>Overview</h2>
+  <!-- 02 DATA WE COLLECT -->
+  <div class="block">
+    <input type="checkbox" class="block-toggle" id="t02">
+    <label class="block-header" for="t02">
+      <div class="block-icon bi-blue">📋</div>
+      <div class="block-head-text">
+        <span class="block-num">02 · DATA</span>
+        <div class="block-title">Data We Collect</div>
       </div>
-      <p>SecureGen ("the App", "we", "our") is a password generation and management application built for Android using Flutter. This Privacy Policy explains what data the App interacts with, how it is handled, and what security measures protect you.</p>
-      <p>SecureGen is built on a <strong>privacy-by-design</strong> foundation. The App has no backend server, connects to no cloud service, and never transmits your vault data anywhere — everything you save stays encrypted on your device. The App does, however, display advertisements powered by <strong>Google AdMob</strong>, which operates under its own privacy framework. This policy is fully transparent about that.</p>
-      <div class="callout c-safe">
-        <span class="callout-ico">✅</span>
-        <div class="callout-body">
-          <div class="callout-title">Our Core Promise</div>
-          <p>Your saved passwords, Master Password hash, and all vault data will never be collected, transmitted, sold, or stored on any external server — ever. The only third-party data interaction in this App is Google AdMob for advertising. We are fully transparent about this in Section 07.</p>
-        </div>
+      <div class="block-chevron">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
-    </section>
-
-    <!-- 02 DATA WE COLLECT -->
-    <section class="section" id="s2">
-      <div class="sec-head">
-        <span class="sec-num">02</span>
-        <span class="sec-icon">📋</span>
-        <h2>Data We Collect</h2>
-      </div>
-      <p>Your vault data is stored exclusively on your device and is never sent externally. The App also uses Google AdMob to display ads, which may independently collect device-level advertising data as described in Section 07.</p>
-      <div class="tbl">
-        <table>
-          <thead>
-            <tr><th>Data Type</th><th>Purpose</th><th>Where Stored</th><th>Sent Externally?</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Saved Passwords</strong><span class="td-note">Website, username, password, notes</span></td>
-              <td>User-managed credential vault</td>
-              <td><span class="tag t-local">Encrypted Hive Box</span></td>
-              <td><span class="tag t-never">Never</span></td>
-            </tr>
-            <tr>
-              <td><strong>Master Password Hash</strong><span class="td-note">SHA-256 hash only — never plain text</span></td>
-              <td>Vault authentication gate</td>
-              <td><span class="tag t-device">Android Keystore</span></td>
-              <td><span class="tag t-never">Never</span></td>
-            </tr>
-            <tr>
-              <td><strong>App Preferences</strong><span class="td-note">Theme, font, auto-lock, generator defaults</span></td>
-              <td>Personalise app experience</td>
-              <td><span class="tag t-local">Local Storage</span></td>
-              <td><span class="tag t-never">Never</span></td>
-            </tr>
-            <tr>
-              <td><strong>Backup File</strong><span class="td-note">Created manually by user on request</span></td>
-              <td>Portable encrypted vault export</td>
-              <td><span class="tag t-local">Device File System</span></td>
-              <td><span class="tag t-never">Never</span></td>
-            </tr>
-            <tr>
-              <td><strong>Ad Data (Google AdMob)</strong><span class="td-note">Device identifiers, IP, ad interactions</span></td>
-              <td>Deliver and measure advertisements</td>
-              <td><span class="tag t-google">Google's Servers</span></td>
-              <td><span class="tag t-google">Yes — by Google</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="callout c-info">
-        <span class="callout-ico">ℹ️</span>
-        <div class="callout-body">
-          <div class="callout-title">About Your Master Password</div>
-          <p>Your Master Password is never stored in plain text. Only its SHA-256 cryptographic hash is saved in the Android Keystore — meaning neither we nor anyone with device access can recover or read your actual Master Password.</p>
+    </label>
+    <div class="block-body">
+      <div class="block-inner">
+        <p class="body-text">Your vault data stays on your device. AdMob may collect device-level ad data independently (see Section 07).</p>
+        <div class="tbl-scroll">
+          <table>
+            <thead>
+              <tr><th>Data</th><th>Stored</th><th>Sent?</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Saved Passwords</strong><span class="td-note">Site, username, notes</span></td>
+                <td><span class="tag t-local">Hive Box</span></td>
+                <td><span class="tag t-never">Never</span></td>
+              </tr>
+              <tr>
+                <td><strong>Master Password</strong><span class="td-note">SHA-256 hash only</span></td>
+                <td><span class="tag t-device">Keystore</span></td>
+                <td><span class="tag t-never">Never</span></td>
+              </tr>
+              <tr>
+                <td><strong>App Preferences</strong><span class="td-note">Theme, defaults</span></td>
+                <td><span class="tag t-local">Local</span></td>
+                <td><span class="tag t-never">Never</span></td>
+              </tr>
+              <tr>
+                <td><strong>Backup File</strong><span class="td-note">User-created</span></td>
+                <td><span class="tag t-local">File System</span></td>
+                <td><span class="tag t-never">Never</span></td>
+              </tr>
+              <tr>
+                <td><strong>Ad Data</strong><span class="td-note">Device ID, IP</span></td>
+                <td><span class="tag t-google">Google</span></td>
+                <td><span class="tag t-google">By Google</span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
-    </section>
-
-    <!-- 03 DATA WE DON'T COLLECT -->
-    <section class="section" id="s3">
-      <div class="sec-head">
-        <span class="sec-num">03</span>
-        <span class="sec-icon">🚫</span>
-        <h2>Data We Do NOT Collect</h2>
-      </div>
-      <p>SecureGen is intentionally built to collect as little data as possible. The following categories are <strong>never</strong> collected by us under any circumstance:</p>
-      <div class="grid">
-        <div class="card">
-          <div class="card-ico ico-cross">✕</div>
-          <div class="card-body"><span class="card-title">Personal Identity</span><p class="card-text">No name, email, phone number, or account registration of any kind.</p></div>
-        </div>
-        <div class="card">
-          <div class="card-ico ico-cross">✕</div>
-          <div class="card-body"><span class="card-title">Location Data</span><p class="card-text">No GPS, precise IP address, or location-based data is accessed or stored by us.</p></div>
-        </div>
-        <div class="card">
-          <div class="card-ico ico-cross">✕</div>
-          <div class="card-body"><span class="card-title">Device Identifiers (by us)</span><p class="card-text">We do not collect IMEI, device ID, or hardware fingerprints. AdMob may access the advertising ID — see Section 07.</p></div>
-        </div>
-        <div class="card">
-          <div class="card-ico ico-cross">✕</div>
-          <div class="card-body"><span class="card-title">Our Own Analytics</span><p class="card-text">We run no analytics. No screen views, taps, session duration, or behavioural data sent to our servers.</p></div>
-        </div>
-        <div class="card">
-          <div class="card-ico ico-cross">✕</div>
-          <div class="card-body"><span class="card-title">Crash Reports (by us)</span><p class="card-text">No crash logs or diagnostics are sent to our servers or any third-party analytics platform we operate.</p></div>
-        </div>
-        <div class="card">
-          <div class="card-ico ico-cross">✕</div>
-          <div class="card-body"><span class="card-title">Contacts or Camera</span><p class="card-text">No access to contacts, gallery, camera, or microphone is requested or used.</p></div>
-        </div>
-        <div class="card">
-          <div class="card-ico ico-cross">✕</div>
-          <div class="card-body"><span class="card-title">Financial Information</span><p class="card-text">No payment data is processed or stored within the App by us.</p></div>
-        </div>
-        <div class="card card-warn">
-          <div class="card-ico ico-warn">!</div>
-          <div class="card-body"><span class="card-title">Advertising Data</span><p class="card-text">Ads are shown via Google AdMob. Google may collect ad-related device data independently. See Section 07 for full details.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 04 HOW DATA IS STORED -->
-    <section class="section" id="s4">
-      <div class="sec-head">
-        <span class="sec-num">04</span>
-        <span class="sec-icon">🗄️</span>
-        <h2>How Your Data Is Stored</h2>
-      </div>
-      <p>All vault data created within SecureGen is stored entirely on your physical device using three distinct mechanisms based on sensitivity level:</p>
-      <div class="tbl">
-        <table>
-          <thead>
-            <tr><th>Storage Mechanism</th><th>What's Stored</th><th>Encryption</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>flutter_secure_storage</strong><span class="td-note">Backed by Android Keystore</span></td>
-              <td>SHA-256 hash of your Master Password</td>
-              <td>Hardware-level encryption via Android Keystore</td>
-            </tr>
-            <tr>
-              <td><strong>Hive Encrypted Box</strong><span class="td-note">Dart-native embedded database</span></td>
-              <td>All saved password entries and vault records</td>
-              <td>AES-256 with key derived from Master Password</td>
-            </tr>
-            <tr>
-              <td><strong>Local Preferences</strong><span class="td-note">Non-sensitive settings only</span></td>
-              <td>Theme, font size, auto-lock timer, generator defaults</td>
-              <td>Not encrypted — contains no sensitive data</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="callout c-warn">
-        <span class="callout-ico">⚠️</span>
-        <div class="callout-body">
-          <div class="callout-title">Device Responsibility</div>
-          <p>Because all vault data is stored locally, you are responsible for protecting your device with a screen lock. We recommend enabling both your device lock and the App's Master Password feature. On rooted devices, local encryption may offer reduced protection.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 05 SECURITY ARCHITECTURE -->
-    <section class="section" id="s5">
-      <div class="sec-head">
-        <span class="sec-num">05</span>
-        <span class="sec-icon">🔐</span>
-        <h2>Security Architecture</h2>
-      </div>
-      <p>SecureGen implements a multi-layer security model to protect your stored passwords even in the event of partial device compromise.</p>
-      <div class="sec-panel">
-        <p class="sec-label">Security Layers — Core to Outer</p>
-        <div class="sec-layers">
-          <div class="sec-layer">
-            <div class="sl-icon">🧮</div>
-            <div class="sl-info"><div class="sl-name">AES-256 Data Encryption</div><div class="sl-desc">All password records encrypted before write to Hive box</div></div>
-            <span class="sl-tag">AES-256</span>
-          </div>
-          <div class="sec-layer">
-            <div class="sl-icon">🔑</div>
-            <div class="sl-info"><div class="sl-name">Master Password Hash</div><div class="sl-desc">SHA-256 hash stored in Android Keystore — never plain text</div></div>
-            <span class="sl-tag">SHA-256</span>
-          </div>
-          <div class="sec-layer">
-            <div class="sl-icon">⏱️</div>
-            <div class="sl-info"><div class="sl-name">Auto-Lock on Idle &amp; Background</div><div class="sl-desc">Locks after 30s / 1min / 5min inactivity, instantly on minimise</div></div>
-            <span class="sl-tag">Auto-Lock</span>
-          </div>
-          <div class="sec-layer">
-            <div class="sl-icon">🖐️</div>
-            <div class="sl-info"><div class="sl-name">Biometric Authentication (Optional)</div><div class="sl-desc">Fingerprint / Face ID via Android local_auth — no biometric data stored by App</div></div>
-            <span class="sl-tag">Biometric</span>
-          </div>
-          <div class="sec-layer">
-            <div class="sl-icon">📷</div>
-            <div class="sl-info"><div class="sl-name">Screenshot Prevention</div><div class="sl-desc">FLAG_SECURE applied on vault screen to block screen capture on Android</div></div>
-            <span class="sl-tag">FLAG_SECURE</span>
-          </div>
-          <div class="sec-layer">
-            <div class="sl-icon">📋</div>
-            <div class="sl-info"><div class="sl-name">Clipboard Auto-Clear</div><div class="sl-desc">Copied passwords automatically removed from clipboard after 30 seconds</div></div>
-            <span class="sl-tag">30s Clear</span>
+        <div class="callout c-blue">
+          <span class="callout-emoji">ℹ️</span>
+          <div class="callout-body">
+            <div class="callout-title">Master Password Note</div>
+            <p>Your Master Password is never stored in plain text. Only a SHA-256 cryptographic hash is saved in the Android Keystore — unreadable by anyone, including us.</p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <!-- 06 INTERNET REQUIREMENT -->
-    <section class="section" id="s6">
-      <div class="sec-head">
-        <span class="sec-num">06</span>
-        <span class="sec-icon">🌐</span>
-        <h2>Internet Requirement</h2>
+  <!-- 03 DATA WE DON'T COLLECT -->
+  <div class="block">
+    <input type="checkbox" class="block-toggle" id="t03">
+    <label class="block-header" for="t03">
+      <div class="block-icon bi-red">🚫</div>
+      <div class="block-head-text">
+        <span class="block-num">03 · EXCLUSIONS</span>
+        <div class="block-title">Data We DON'T Collect</div>
       </div>
-      <p>SecureGen requires an active internet connection (WiFi or Mobile Data) to operate. This serves two purposes: (1) it is a product-level design requirement for core functionality, and (2) it allows Google AdMob to load and display advertisements.</p>
-      <div class="callout c-safe">
-        <span class="callout-ico">✅</span>
-        <div class="callout-body">
-          <div class="callout-title">Your Vault Data Is Never Transmitted</div>
-          <p>Even though an internet connection is required, SecureGen never sends, uploads, or syncs your vault data to any server. The connection is used only for connectivity detection and loading AdMob ads. You can verify this with a network traffic inspector — zero outbound vault data will be detected.</p>
-        </div>
+      <div class="block-chevron">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
-      <p>Connectivity is monitored using the <strong>connectivity_plus</strong> Flutter package. If no connection is detected, all core features are disabled and a clear message is shown until connectivity is restored.</p>
-    </section>
-
-    <!-- 07 ADVERTISING — ADMOB -->
-    <section class="section" id="s7">
-      <div class="sec-head">
-        <span class="sec-num">07</span>
-        <span class="sec-icon">📢</span>
-        <h2>Advertising — Google AdMob</h2>
-      </div>
-      <p>SecureGen displays advertisements provided by <strong>Google AdMob</strong>, a third-party advertising platform operated by Google LLC. This section explains precisely what AdMob does, what data it may collect, and how you can control it.</p>
-
-      <div class="admob-notice">
-        <div class="admob-logo">G</div>
-        <div class="admob-body">
-          <div class="admob-title">Third-Party Notice — Google AdMob</div>
-          <p class="admob-text">When an ad is displayed, Google's AdMob SDK communicates with Google's servers and may collect and process data under Google's own Privacy Policy. SecureGen does not control, access, or receive any of this data.</p>
-        </div>
-      </div>
-
-      <p class="sub-h">What AdMob May Collect</p>
-      <div class="tbl">
-        <table>
-          <thead>
-            <tr><th>Data Category</th><th>Examples</th><th>Collected By</th><th>Purpose</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Device Identifiers</strong></td>
-              <td>Advertising ID (GAID), Android ID</td>
-              <td>Google AdMob</td>
-              <td>Ad targeting and frequency capping</td>
-            </tr>
-            <tr>
-              <td><strong>IP Address</strong></td>
-              <td>Approximate location derived from IP</td>
-              <td>Google AdMob</td>
-              <td>Geo-targeted advertising</td>
-            </tr>
-            <tr>
-              <td><strong>Device Information</strong></td>
-              <td>OS version, screen size, device model</td>
-              <td>Google AdMob</td>
-              <td>Ad rendering compatibility</td>
-            </tr>
-            <tr>
-              <td><strong>Ad Interaction Data</strong></td>
-              <td>Impressions, clicks, view duration</td>
-              <td>Google AdMob</td>
-              <td>Ad performance measurement</td>
-            </tr>
-            <tr>
-              <td><strong>Coarse Location</strong></td>
-              <td>Country / region level only</td>
-              <td>Google AdMob</td>
-              <td>Region-relevant ad delivery</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="callout c-safe">
-        <span class="callout-ico">🔒</span>
-        <div class="callout-body">
-          <div class="callout-title">Your Password Data Is NEVER Shared with AdMob</div>
-          <p>The AdMob SDK operates in a completely isolated context from the vault. It has zero access to your saved passwords, Master Password, vault contents, or any sensitive data managed by SecureGen. AdMob only interacts with device-level advertising identifiers provided by the Android OS.</p>
-        </div>
-      </div>
-
-      <p class="sub-h">Types of Ads Displayed</p>
-      <div class="grid">
-        <div class="card">
-          <div class="card-ico ico-info">📱</div>
-          <div class="card-body"><span class="card-title">Banner Ads</span><p class="card-text">Small, non-intrusive ads pinned to the bottom of certain non-sensitive screens.</p></div>
-        </div>
-        <div class="card">
-          <div class="card-ico ico-info">🖥️</div>
-          <div class="card-body"><span class="card-title">Interstitial Ads</span><p class="card-text">Full-screen ads shown at natural transition points (e.g., between actions). Always dismissible.</p></div>
-        </div>
-      </div>
-
-      <div class="callout c-info">
-        <span class="callout-ico">🛡️</span>
-        <div class="callout-body">
-          <div class="callout-title">Ads Are Never Shown on Sensitive Screens</div>
-          <p>Ads are strictly prohibited on the Saved Passwords screen, Master Password entry screen, Lock screen, and any vault or settings screen. Ads only appear on non-sensitive screens such as the Password Generator (Home) screen.</p>
-        </div>
-      </div>
-
-      <p class="sub-h">How to Opt Out of Personalised Ads</p>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-body">
-            <div class="step-title">Opt Out via Android Settings</div>
-            <p class="step-desc">Go to <span class="step-path">Settings → Privacy → Ads → Opt out of Ads Personalisation</span>. This disables personalised ads system-wide on your device.</p>
+    </label>
+    <div class="block-body">
+      <div class="block-inner">
+        <p class="body-text">These categories are <strong>never collected by us</strong> under any circumstance:</p>
+        <div class="mini-grid">
+          <div class="mini-card">
+            <div class="mini-ico ico-red">✕</div>
+            <div class="mini-title">Personal Identity</div>
+            <div class="mini-text">No name, email, phone, or account registration.</div>
           </div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-body">
-            <div class="step-title">Manage via Google Ad Settings</div>
-            <p class="step-desc">Visit <span class="step-path">adssettings.google.com</span> to review your ad preferences, opt out of interest-based ads, and see what Google knows about you.</p>
+          <div class="mini-card">
+            <div class="mini-ico ico-red">✕</div>
+            <div class="mini-title">Location Data</div>
+            <div class="mini-text">No GPS or precise IP address stored by us.</div>
           </div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-body">
-            <div class="step-title">Reset Your Advertising ID</div>
-            <p class="step-desc">Go to <span class="step-path">Settings → Privacy → Ads → Reset Advertising ID</span> to generate a fresh ID, breaking any historical ad profile linkage.</p>
+          <div class="mini-card">
+            <div class="mini-ico ico-red">✕</div>
+            <div class="mini-title">Our Analytics</div>
+            <div class="mini-text">No screen views, taps, or sessions tracked by us.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-ico ico-red">✕</div>
+            <div class="mini-title">Crash Reports</div>
+            <div class="mini-text">No crash logs sent to our servers or third parties.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-ico ico-red">✕</div>
+            <div class="mini-title">Camera / Contacts</div>
+            <div class="mini-text">No access to camera, gallery, microphone, or contacts.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-ico ico-amber">!</div>
+            <div class="mini-title">Ad Data</div>
+            <div class="mini-text">Google AdMob may collect device ad data. See Section 07.</div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="callout c-info">
-        <span class="callout-ico">🔗</span>
-        <div class="callout-body">
-          <div class="callout-title">Google's Privacy Policy</div>
-          <p>AdMob's data practices are governed entirely by Google's Privacy Policy at <strong>policies.google.com/privacy</strong>. SecureGen is not responsible for Google's independent data practices. We encourage you to review Google's policy for full details on how ad data is processed.</p>
+  <!-- 04 STORAGE -->
+  <div class="block">
+    <input type="checkbox" class="block-toggle" id="t04">
+    <label class="block-header" for="t04">
+      <div class="block-icon bi-green">🗄️</div>
+      <div class="block-head-text">
+        <span class="block-num">04 · STORAGE</span>
+        <div class="block-title">How Data Is Stored</div>
+      </div>
+      <div class="block-chevron">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </label>
+    <div class="block-body">
+      <div class="block-inner">
+        <div class="row-list">
+          <div class="row-item">
+            <span class="row-tag rt-blue">flutter_secure_storage</span>
+            <div class="row-desc">Stores SHA-256 hash of your Master Password. Backed by <strong>Android Keystore</strong> hardware encryption.</div>
+          </div>
+          <div class="row-item">
+            <span class="row-tag rt-green">Hive Encrypted Box</span>
+            <div class="row-desc">Stores all saved password vault entries. Encrypted with <strong>AES-256</strong>, key derived from your Master Password.</div>
+          </div>
+          <div class="row-item">
+            <span class="row-tag rt-amber">Local Preferences</span>
+            <div class="row-desc">Stores non-sensitive app settings only (theme, auto-lock timer). <strong>No encryption needed</strong> — no sensitive data.</div>
+          </div>
+        </div>
+        <div class="callout c-amber">
+          <span class="callout-emoji">⚠️</span>
+          <div class="callout-body">
+            <div class="callout-title">Device Responsibility</div>
+            <p>Keep your device locked with a PIN or biometric. All vault data is on your device — protect it. Rooted devices may offer reduced encryption protection.</p>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <!-- 08 PERMISSIONS -->
-    <section class="section" id="s8">
-      <div class="sec-head">
-        <span class="sec-num">08</span>
-        <span class="sec-icon">📱</span>
-        <h2>Android Permissions</h2>
+  <!-- 05 SECURITY -->
+  <div class="block">
+    <input type="checkbox" class="block-toggle" id="t05">
+    <label class="block-header" for="t05">
+      <div class="block-icon bi-blue">🔐</div>
+      <div class="block-head-text">
+        <span class="block-num">05 · SECURITY</span>
+        <div class="block-title">Security Architecture</div>
       </div>
-      <p>SecureGen requests only the minimum permissions necessary to function. Below is a complete, transparent list of every permission the App requests and the exact reason for each:</p>
-      <div class="perm-list">
-        <div class="perm-row">
-          <span class="perm-tag pt-accent">INTERNET</span>
-          <p class="perm-desc">Required for two purposes: (1) detecting whether an active internet connection is present, and (2) loading and displaying Google AdMob advertisements. <strong>No vault or password data is transmitted via this permission.</strong></p>
-        </div>
-        <div class="perm-row">
-          <span class="perm-tag pt-accent">ACCESS_NETWORK_STATE</span>
-          <p class="perm-desc">Allows the App to check whether WiFi or Mobile Data is active before enabling core features. Also used by AdMob to optimise ad loading behaviour.</p>
-        </div>
-        <div class="perm-row">
-          <span class="perm-tag pt-warn">AD_ID</span>
-          <p class="perm-desc">Required by Google AdMob on Android 13+ to access the Advertising Identifier (GAID) for delivering and measuring ads. Users can reset or permanently opt out of this ID in <strong>Settings → Privacy → Ads</strong>.</p>
-        </div>
-        <div class="perm-row">
-          <span class="perm-tag pt-safe">USE_BIOMETRIC</span>
-          <p class="perm-desc">Enables optional fingerprint or Face ID unlock as an alternative to typing the Master Password. Only used if you enable biometric authentication in Settings.</p>
-        </div>
-        <div class="perm-row">
-          <span class="perm-tag pt-safe">USE_FINGERPRINT</span>
-          <p class="perm-desc">Legacy biometric support for older Android devices (Android 6.0–8.x). Same purpose as USE_BIOMETRIC above — only used if biometric is enabled.</p>
+      <div class="block-chevron">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </label>
+    <div class="block-body">
+      <div class="block-inner">
+        <p class="body-text">SecureGen uses a six-layer security model to protect your vault data even if your device is partially compromised.</p>
+        <div class="sec-panel">
+          <div class="sec-panel-label">Protection Layers</div>
+          <div class="sec-layers">
+            <div class="sec-layer">
+              <div class="sl-icon">🧮</div>
+              <div class="sl-info">
+                <div class="sl-name">AES-256 Encryption</div>
+                <div class="sl-desc">All records encrypted before saving to Hive</div>
+              </div>
+              <span class="sl-tag">AES-256</span>
+            </div>
+            <div class="sec-layer">
+              <div class="sl-icon">🔑</div>
+              <div class="sl-info">
+                <div class="sl-name">Master Password Hash</div>
+                <div class="sl-desc">SHA-256 in Keystore — never plain text</div>
+              </div>
+              <span class="sl-tag">SHA-256</span>
+            </div>
+            <div class="sec-layer">
+              <div class="sl-icon">⏱️</div>
+              <div class="sl-info">
+                <div class="sl-name">Auto-Lock</div>
+                <div class="sl-desc">Locks after 30s / 1min / 5min idle or on minimise</div>
+              </div>
+              <span class="sl-tag">Auto-Lock</span>
+            </div>
+            <div class="sec-layer">
+              <div class="sl-icon">🖐️</div>
+              <div class="sl-info">
+                <div class="sl-name">Biometric Auth (optional)</div>
+                <div class="sl-desc">Fingerprint / Face ID via Android OS only</div>
+              </div>
+              <span class="sl-tag">Biometric</span>
+            </div>
+            <div class="sec-layer">
+              <div class="sl-icon">📷</div>
+              <div class="sl-info">
+                <div class="sl-name">Screenshot Block</div>
+                <div class="sl-desc">FLAG_SECURE on vault — blocks screen capture</div>
+              </div>
+              <span class="sl-tag">FLAG_SECURE</span>
+            </div>
+            <div class="sec-layer">
+              <div class="sl-icon">📋</div>
+              <div class="sl-info">
+                <div class="sl-name">Clipboard Auto-Clear</div>
+                <div class="sl-desc">Copied passwords wiped from clipboard in 30s</div>
+              </div>
+              <span class="sl-tag">30s Clear</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="callout c-info">
-        <span class="callout-ico">🖐️</span>
-        <div class="callout-body">
-          <div class="callout-title">Biometric Data Note</div>
-          <p>SecureGen never accesses, stores, or transmits biometric data. All fingerprint and facial recognition processing is handled entirely by the Android OS. The App receives only a pass/fail boolean result from the system.</p>
-        </div>
-      </div>
-    </section>
+    </div>
+  </div>
 
-    <!-- 09 CHILDREN'S PRIVACY -->
-    <section class="section" id="s9">
-      <div class="sec-head">
-        <span class="sec-num">09</span>
-        <span class="sec-icon">👶</span>
-        <h2>Children's Privacy</h2>
+  <!-- 06 INTERNET -->
+  <div class="block">
+    <input type="checkbox" class="block-toggle" id="t06">
+    <label class="block-header" for="t06">
+      <div class="block-icon bi-blue">🌐</div>
+      <div class="block-head-text">
+        <span class="block-num">06 · INTERNET</span>
+        <div class="block-title">Internet Requirement</div>
       </div>
-      <p>SecureGen is not directed at children under the age of 13. We do not knowingly collect any personal information from children. Because the App uses <strong>Google AdMob</strong>, we have taken additional steps to comply with child privacy laws:</p>
-      <div class="perm-list">
-        <div class="perm-row">
-          <span class="perm-tag pt-safe">COPPA</span>
-          <p class="perm-desc">We have configured AdMob with child-directed treatment settings where applicable. This disables interest-based targeting, remarketing, and behavioural profiling for child users as required by the Children's Online Privacy Protection Act.</p>
-        </div>
-        <div class="perm-row">
-          <span class="perm-tag pt-safe">GDPR / TFUA</span>
-          <p class="perm-desc">For users in the European Economic Area (EEA) or UK under the age of digital consent, we have enabled the "tag for users under the age of consent in Europe" (TFUA) setting in AdMob. This disables personalised advertising for those users.</p>
-        </div>
+      <div class="block-chevron">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
-      <p>If you are a parent or guardian and believe your child has used the App, please note that no vault data has been transmitted to us. For concerns about ad data collected by Google, review Google's family policies at <strong>families.google.com/familylink/privacy/child-policy</strong> or contact us directly.</p>
-    </section>
+    </label>
+    <div class="block-body">
+      <div class="block-inner">
+        <p class="body-text">SecureGen requires an active internet connection (WiFi or Mobile Data) for two purposes: (1) it's a product-level design requirement, and (2) Google AdMob uses it to load and display ads.</p>
+        <div class="callout c-green">
+          <span class="callout-emoji">✅</span>
+          <div class="callout-body">
+            <div class="callout-title">Your Vault Data Is Never Transmitted</div>
+            <p>Even with internet required, SecureGen never sends, uploads, or syncs your vault data to any server. You can verify this with a network traffic inspector.</p>
+          </div>
+        </div>
+        <p class="body-text">The <strong>connectivity_plus</strong> package is used only to detect if a connection is active. If no connection is found, core features are disabled until connectivity is restored.</p>
+      </div>
+    </div>
+  </div>
 
-    <!-- 10 YOUR RIGHTS -->
-    <section class="section" id="s10">
-      <div class="sec-head">
-        <span class="sec-num">10</span>
-        <span class="sec-icon">⚖️</span>
-        <h2>Your Rights &amp; Control</h2>
-      </div>
-      <p>Because SecureGen stores all vault data locally on your device, you have complete control over your passwords at all times. Your rights include:</p>
-      <div class="grid">
-        <div class="card">
-          <div class="card-ico ico-check">✓</div>
-          <div class="card-body"><span class="card-title">Right to Access</span><p class="card-text">View all saved passwords after Master Password verification at any time.</p></div>
-        </div>
-        <div class="card">
-          <div class="card-ico ico-check">✓</div>
-          <div class="card-body"><span class="card-title">Right to Edit</span><p class="card-text">Edit any saved password entry at any time within the App.</p></div>
-        </div>
-        <div class="card">
-          <div class="card-ico ico-check">✓</div>
-          <div class="card-body"><span class="card-title">Right to Delete</span><p class="card-text">Delete individual entries or clear all vault data from Settings → Clear All Data.</p></div>
-        </div>
-        <div class="card">
-          <div class="card-ico ico-check">✓</div>
-          <div class="card-body"><span class="card-title">Right to Export</span><p class="card-text">Export an AES-256 encrypted backup of your entire vault at any time.</p></div>
-        </div>
-        <div class="card">
-          <div class="card-ico ico-check">✓</div>
-          <div class="card-body"><span class="card-title">Right to Portability</span><p class="card-text">Your backup file is yours — import it to any supported SecureGen installation.</p></div>
-        </div>
-        <div class="card">
-          <div class="card-ico ico-check">✓</div>
-          <div class="card-body"><span class="card-title">Right to Erasure</span><p class="card-text">Uninstalling the App permanently and irreversibly deletes all vault data from your device.</p></div>
-        </div>
-        <div class="card">
-          <div class="card-ico ico-check">✓</div>
-          <div class="card-body"><span class="card-title">Opt Out of Personalised Ads</span><p class="card-text">Disable personalised ads via Android Settings → Privacy → Ads, or at adssettings.google.com.</p></div>
-        </div>
-        <div class="card">
-          <div class="card-ico ico-check">✓</div>
-          <div class="card-body"><span class="card-title">Reset Advertising ID</span><p class="card-text">Generate a new advertising ID at any time via Android Settings → Privacy → Ads → Reset ID.</p></div>
-        </div>
-      </div>
-      <div class="callout c-info">
-        <span class="callout-ico">⚖️</span>
-        <div class="callout-body">
-          <div class="callout-title">GDPR &amp; CCPA Compliance</div>
-          <p>SecureGen does not collect, process, or transmit your vault data to any server, making it compliant by design for vault data under GDPR, CCPA, and similar regulations. For ad-related data processed by Google, Google acts as an independent data controller. To exercise GDPR rights over Google's ad data, visit <strong>myaccount.google.com</strong> or use Google's data request portal.</p>
-        </div>
-      </div>
-    </section>
+  <!-- ═══ GROUP: ADVERTISING ═══ -->
+  <div class="group-label">Advertising</div>
 
-    <!-- 11 POLICY CHANGES -->
-    <section class="section" id="s11">
-      <div class="sec-head">
-        <span class="sec-num">11</span>
-        <span class="sec-icon">📝</span>
-        <h2>Changes to This Policy</h2>
+  <!-- 07 ADMOB -->
+  <div class="block">
+    <input type="checkbox" class="block-toggle" id="t07">
+    <label class="block-header" for="t07">
+      <div class="block-icon bi-amber">📢</div>
+      <div class="block-head-text">
+        <span class="block-num">07 · ADMOB</span>
+        <div class="block-title">Google AdMob Advertising</div>
       </div>
-      <p>We may update this Privacy Policy as the App evolves. When we do, we will update the "Last Updated" date at the top of this page. For significant changes — particularly any that introduce new data handling — we will notify users via an in-app message on the next App launch.</p>
-      <p>Continued use of the App after any changes constitutes your acceptance of the updated policy. We encourage you to review this policy periodically.</p>
-      <div class="callout c-safe">
-        <span class="callout-ico">✅</span>
-        <div class="callout-body">
-          <div class="callout-title">Our Permanent Commitment</div>
-          <p>We will never introduce new personal data collection beyond what is described in this policy without a major version announcement and, where required by law, your explicit consent. Your vault data will never be sent to any server — this is a permanent technical and policy commitment. Google AdMob will remain the only third-party data interaction in this App.</p>
+      <div class="block-chevron">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </label>
+    <div class="block-body">
+      <div class="block-inner">
+        <p class="body-text">SecureGen displays ads via <strong>Google AdMob</strong>, operated by Google LLC. AdMob may independently collect data under Google's own Privacy Policy.</p>
+
+        <div class="admob-panel">
+          <div class="admob-g-logo">G</div>
+          <div class="admob-body">
+            <div class="admob-title">Third-Party Notice</div>
+            <p class="admob-text">When an ad appears, Google's SDK communicates with Google's servers. SecureGen does not control, access, or receive this data.</p>
+          </div>
+        </div>
+
+        <p class="body-text" style="margin-top:14px;"><strong>What AdMob may collect:</strong></p>
+        <div class="row-list">
+          <div class="row-item">
+            <span class="row-tag rt-amber">Device ID</span>
+            <div class="row-desc">Advertising ID (GAID) for ad targeting and frequency capping</div>
+          </div>
+          <div class="row-item">
+            <span class="row-tag rt-amber">IP Address</span>
+            <div class="row-desc">Approximate location for geo-targeted advertising</div>
+          </div>
+          <div class="row-item">
+            <span class="row-tag rt-amber">Device Info</span>
+            <div class="row-desc">OS version, screen size, device model for ad rendering</div>
+          </div>
+          <div class="row-item">
+            <span class="row-tag rt-amber">Ad Interactions</span>
+            <div class="row-desc">Impressions, clicks, and view duration for ad performance</div>
+          </div>
+        </div>
+
+        <div class="callout c-green">
+          <span class="callout-emoji">🔒</span>
+          <div class="callout-body">
+            <div class="callout-title">Vault Data NEVER Shared with AdMob</div>
+            <p>AdMob has zero access to your saved passwords, Master Password, or any vault content. It only interacts with Android OS-level advertising identifiers.</p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <p class="body-text"><strong>Ads are shown on:</strong> Password Generator screen only.<br><strong>Ads are NEVER shown on:</strong> Vault, Lock screen, Master Password entry, or Settings.</p>
+        <p class="body-text" style="margin-top:14px;"><strong>Opt out of personalised ads:</strong></p>
+        <div class="steps">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <div class="step-title">Android Settings</div>
+              <p class="step-text"><span class="path-chip">Settings → Privacy → Ads → Opt out of Ads Personalisation</span></p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <div class="step-title">Google Ad Settings</div>
+              <p class="step-text">Visit <span class="path-chip">adssettings.google.com</span> to manage Google ad preferences.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <div class="step-title">Reset Advertising ID</div>
+              <p class="step-text"><span class="path-chip">Settings → Privacy → Ads → Reset Advertising ID</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout c-blue">
+          <span class="callout-emoji">🔗</span>
+          <div class="callout-body">
+            <div class="callout-title">Google's Privacy Policy</div>
+            <p>AdMob is governed by Google's Privacy Policy at <strong>policies.google.com/privacy</strong>. SecureGen is not responsible for Google's data practices.</p>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <!-- 12 CONTACT -->
-    <section class="section" id="s12">
-      <div class="sec-head">
-        <span class="sec-num">12</span>
-        <span class="sec-icon">✉️</span>
-        <h2>Contact Us</h2>
+  <!-- ═══ GROUP: LEGAL ═══ -->
+  <div class="group-label">Legal &amp; Rights</div>
+
+  <!-- 08 PERMISSIONS -->
+  <div class="block">
+    <input type="checkbox" class="block-toggle" id="t08">
+    <label class="block-header" for="t08">
+      <div class="block-icon bi-purple">📱</div>
+      <div class="block-head-text">
+        <span class="block-num">08 · PERMISSIONS</span>
+        <div class="block-title">Android Permissions</div>
       </div>
-      <p>If you have questions, concerns, or feedback about this Privacy Policy or how SecureGen handles your data, please reach out. We take all privacy enquiries seriously and will respond promptly.</p>
-      <div class="contact-card">
-        <h3>We're here to help</h3>
-        <p>Have a privacy question or a concern about ads? Contact the SecureGen team directly.</p>
-        <a class="contact-pill" href="mailto:privacy@securegen.app">✉️ &nbsp; privacy@securegen.app</a>
+      <div class="block-chevron">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
-    </section>
+    </label>
+    <div class="block-body">
+      <div class="block-inner">
+        <p class="body-text">Every permission SecureGen requests is listed here with its exact purpose:</p>
+        <div class="row-list">
+          <div class="row-item">
+            <span class="row-tag rt-blue">INTERNET</span>
+            <div class="row-desc">Detect active connection and load AdMob ads. <strong>No vault data is transmitted.</strong></div>
+          </div>
+          <div class="row-item">
+            <span class="row-tag rt-blue">NETWORK_STATE</span>
+            <div class="row-desc">Check if WiFi or Mobile Data is active before enabling core features.</div>
+          </div>
+          <div class="row-item">
+            <span class="row-tag rt-amber">AD_ID</span>
+            <div class="row-desc">Required by AdMob on Android 13+ to access the Advertising ID. You can reset or opt out in <strong>Settings → Privacy → Ads</strong>.</div>
+          </div>
+          <div class="row-item">
+            <span class="row-tag rt-green">USE_BIOMETRIC</span>
+            <div class="row-desc">Optional fingerprint / Face ID unlock. Only used when enabled in Settings.</div>
+          </div>
+          <div class="row-item">
+            <span class="row-tag rt-green">USE_FINGERPRINT</span>
+            <div class="row-desc">Legacy biometric support for Android 6.0–8.x devices. Same purpose as USE_BIOMETRIC.</div>
+          </div>
+        </div>
+        <div class="callout c-blue">
+          <span class="callout-emoji">🖐️</span>
+          <div class="callout-body">
+            <div class="callout-title">Biometric Data</div>
+            <p>The App never accesses or stores biometric data. Fingerprint and face recognition are processed entirely by the Android OS. SecureGen receives only a pass/fail result.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  </main>
-</div>
+  <!-- 09 CHILDREN -->
+  <div class="block">
+    <input type="checkbox" class="block-toggle" id="t09">
+    <label class="block-header" for="t09">
+      <div class="block-icon bi-green">👶</div>
+      <div class="block-head-text">
+        <span class="block-num">09 · CHILDREN</span>
+        <div class="block-title">Children's Privacy</div>
+      </div>
+      <div class="block-chevron">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </label>
+    <div class="block-body">
+      <div class="block-inner">
+        <p class="body-text">SecureGen is not directed at children under 13. We do not knowingly collect personal information from children. We have taken additional steps for AdMob compliance:</p>
+        <div class="row-list">
+          <div class="row-item">
+            <span class="row-tag rt-green">COPPA</span>
+            <div class="row-desc">AdMob is configured with child-directed treatment settings, disabling interest-based targeting for child users as required by the Children's Online Privacy Protection Act.</div>
+          </div>
+          <div class="row-item">
+            <span class="row-tag rt-green">GDPR / TFUA</span>
+            <div class="row-desc">For EEA/UK users under digital consent age, we have enabled "tag for users under the age of consent in Europe" (TFUA) in AdMob, disabling personalised ads.</div>
+          </div>
+        </div>
+        <p class="body-text">For concerns about ad data collected by Google for child users, review Google's family policies at <strong>families.google.com/familylink/privacy/child-policy</strong>.</p>
+      </div>
+    </div>
+  </div>
 
-<!-- ═══════════════ FOOTER ═══════════════ -->
+  <!-- 10 YOUR RIGHTS -->
+  <div class="block">
+    <input type="checkbox" class="block-toggle" id="t10">
+    <label class="block-header" for="t10">
+      <div class="block-icon bi-green">⚖️</div>
+      <div class="block-head-text">
+        <span class="block-num">10 · RIGHTS</span>
+        <div class="block-title">Your Rights &amp; Control</div>
+      </div>
+      <div class="block-chevron">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </label>
+    <div class="block-body">
+      <div class="block-inner">
+        <p class="body-text">Because all vault data is local, you have complete control at all times:</p>
+        <div class="rights-grid">
+          <div class="right-item">
+            <div class="right-check">✓</div>
+            <div class="right-body">
+              <div class="right-title">Access</div>
+              <div class="right-desc">View all passwords after Master Password verification.</div>
+            </div>
+          </div>
+          <div class="right-item">
+            <div class="right-check">✓</div>
+            <div class="right-body">
+              <div class="right-title">Edit</div>
+              <div class="right-desc">Edit any saved entry at any time in the App.</div>
+            </div>
+          </div>
+          <div class="right-item">
+            <div class="right-check">✓</div>
+            <div class="right-body">
+              <div class="right-title">Delete</div>
+              <div class="right-desc">Remove individual entries or all data via Settings → Clear All Data.</div>
+            </div>
+          </div>
+          <div class="right-item">
+            <div class="right-check">✓</div>
+            <div class="right-body">
+              <div class="right-title">Export</div>
+              <div class="right-desc">Export an AES-256 encrypted backup of your vault anytime.</div>
+            </div>
+          </div>
+          <div class="right-item">
+            <div class="right-check">✓</div>
+            <div class="right-body">
+              <div class="right-title">Erasure</div>
+              <div class="right-desc">Uninstalling permanently deletes all vault data from your device.</div>
+            </div>
+          </div>
+          <div class="right-item">
+            <div class="right-check">✓</div>
+            <div class="right-body">
+              <div class="right-title">Opt Out Ads</div>
+              <div class="right-desc">Disable personalised ads via Android Settings → Privacy → Ads.</div>
+            </div>
+          </div>
+        </div>
+        <div class="callout c-blue">
+          <span class="callout-emoji">⚖️</span>
+          <div class="callout-body">
+            <div class="callout-title">GDPR &amp; CCPA</div>
+            <p>Vault data is never processed on any server — compliant by design. For ad-related GDPR rights over Google's data, visit <strong>myaccount.google.com</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11 POLICY CHANGES -->
+  <div class="block">
+    <input type="checkbox" class="block-toggle" id="t11">
+    <label class="block-header" for="t11">
+      <div class="block-icon bi-blue">📝</div>
+      <div class="block-head-text">
+        <span class="block-num">11 · UPDATES</span>
+        <div class="block-title">Changes to This Policy</div>
+      </div>
+      <div class="block-chevron">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </label>
+    <div class="block-body">
+      <div class="block-inner">
+        <p class="body-text">We may update this Privacy Policy as the App evolves. When we do, we update the "Last Updated" date above. For significant changes, we notify users via an in-app message on the next App launch.</p>
+        <p class="body-text">Continued use of the App after updates constitutes acceptance of the updated policy.</p>
+        <div class="callout c-green">
+          <span class="callout-emoji">✅</span>
+          <div class="callout-body">
+            <div class="callout-title">Permanent Commitment</div>
+            <p>We will never add new personal data collection beyond what's described here without a major version announcement and, where required by law, your explicit consent. AdMob will remain the only third-party interaction.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12 CONTACT -->
+  <div class="block">
+    <input type="checkbox" class="block-toggle" id="t12">
+    <label class="block-header" for="t12">
+      <div class="block-icon bi-blue">✉️</div>
+      <div class="block-head-text">
+        <span class="block-num">12 · CONTACT</span>
+        <div class="block-title">Contact Us</div>
+      </div>
+      <div class="block-chevron">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </label>
+    <div class="block-body">
+      <div class="block-inner">
+        <p class="body-text">Privacy questions, concerns, or feedback? Reach out directly. We take all privacy enquiries seriously and respond promptly.</p>
+        <div class="contact-card">
+          <h3>We're here to help</h3>
+          <p>Privacy question or ad concern? Contact the SecureGen team.</p>
+          <a class="contact-link" href="mailto:privacy@securegen.app">
+            ✉️ &nbsp;privacy@securegen.app
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<!-- ─── FOOTER ─── -->
 <footer>
   <div class="footer-logo">🔐 SecureGen</div>
   <div class="footer-rule"></div>
-  <p class="footer-line">Privacy Policy &nbsp;·&nbsp; Version 1.0 &nbsp;·&nbsp; © 2025 SecureGen. All rights reserved.</p>
-  <p class="footer-tag">Your passwords. Your device. Your control.</p>
+  <div class="footer-text">Privacy Policy · v1.0 · © 2025 SecureGen</div>
 </footer>
 
+<!-- ─── SCROLL-TO-TOP FAB ─── -->
+<button class="fab" id="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+  // Show FAB after scrolling 300px
+  const fab = document.getElementById('fab');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) fab.classList.add('visible');
+    else fab.classList.remove('visible');
+  }, { passive: true });
+</script>
 </body>
 </html>
